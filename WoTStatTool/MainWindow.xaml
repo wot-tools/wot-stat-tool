@@ -1,0 +1,76 @@
+﻿<Window x:Class="WotStatsTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WotStatsTool"
+        xmlns:view="clr-namespace:WotStatsTool.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="760">
+    <Grid Margin="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Check player" Grid.Row="0" Margin="0,0,0,6">
+            <StackPanel>
+                <view:PlayerSelectView DataContext="{Binding Path=PlayerSelect}" />
+                <ComboBox ItemsSource="{Binding Path=Versions}"
+                          SelectedItem="{Binding Path=SelectedExpectedVersion}"
+                          IsEnabled="{Binding Path=ValueListLoading.IsCompleted}"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Snapshots" Grid.Row="1" Margin="0,0,0,6">
+            <view:DisplayRangeSelectorView DataContext="{Binding Path=DisplayRangeSelector}" />
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Margin="0,0,0,6">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Stats for "/>
+                    <TextBlock x:Name="tbUsername" Text="Player X" FontWeight="Bold"/>
+                </StackPanel>
+            </GroupBox.Header>
+            <Grid Margin="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <view:StatTotalsView Grid.Column="0" DataContext="{Binding Path=StatTotals}" />
+                <view:TankFilterView Grid.Column="2" DataContext="{Binding Path=TankFilter}" />
+
+            </Grid>
+        </GroupBox>
+
+        <DataGrid x:Name="dgOverview" IsReadOnly="True" ItemsSource="{Binding Collection}" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                  AutoGenerateColumns="False" AlternatingRowBackground="LightGray" HeadersVisibility="Column" Grid.Row="3">
+            <DataGrid.Resources>
+                <Style TargetType="TextBlock" x:Key="AlignRight">
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Vehicle" Binding="{Binding Name}" Width="200"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="60"/>
+                <DataGridTextColumn Header="Nation" Binding="{Binding Nation}" Width="120"/>
+                <DataGridTextColumn Header="Tier" Binding="{Binding Tier, StringFormat=N0}" Width="30" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Battles" Binding="{Binding Battles, StringFormat=N0}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="DPG" Binding="{Binding AvgDamage, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Avg Spot" Binding="{Binding AvgSpotted, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="KPG" Binding="{Binding AvgFrags, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Avg Cap" Binding="{Binding AvgCap, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Avg Decap" Binding="{Binding AvgDecap, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Hitrate" Binding="{Binding Hitrate, StringFormat=P}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Avg XP" Binding="{Binding AvgExperience, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Winrate" Binding="{Binding Winrate, StringFormat=P2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="WN8" Binding="{Binding WN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
