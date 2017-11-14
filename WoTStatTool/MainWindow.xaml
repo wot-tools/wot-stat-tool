@@ -46,9 +46,9 @@
             </Grid>
         </GroupBox>
 
-        <!-- dummy to be able to bind visibility on DataGridTextColumn -->
-        <FrameworkElement x:Name="expectedVisibility" Visibility="{Binding Path=ExpectedValuesVisibility}" />
         <StackPanel Grid.Row="3">
+            <!-- dummy to be able to bind visibility on DataGridTextColumn -->
+            <FrameworkElement x:Name="expectedVisibility" Visibility="{Binding Path=ExpectedValuesVisibility}" />
             <CheckBox Content="show expected values" IsChecked="{Binding Path=ShowExpectedValues}" />
             <DataGrid x:Name="dgOverview" IsReadOnly="True" ItemsSource="{Binding Collection}" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                   AutoGenerateColumns="False" AlternatingRowBackground="LightGray" HeadersVisibility="Column">
@@ -73,6 +73,16 @@
                     <DataGridTextColumn Header="Winrate" Binding="{Binding Winrate, StringFormat=P2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                     <DataGridTextColumn Header="WN8" Binding="{Binding WN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                     <DataGridTextColumn Header="Expected Frag" Binding="{Binding ExpectedFrag, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}" Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
+                    <DataGridTemplateColumn Header="Frags" Width="60">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding AvgFrags, StringFormat=N2}" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{Binding ExpectedFrag, StringFormat=N2}" HorizontalAlignment="Right" Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
