@@ -23,8 +23,12 @@ namespace WotStatsTool
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         private readonly WGApiClient Client = new WGApiClient("https://api.worldoftanks", Region.eu, ApiKey.Key, new Logger());
         public ObservableCollection<TankStatColumn> Collection { get; } = new ObservableCollection<TankStatColumn>();
 
@@ -55,6 +59,21 @@ namespace WotStatsTool
         //UpdateDates();
 
         public NotifyTaskCompletion ValueListLoading { get; set; }
+
+        private bool _ShowExpectedValues = false;
+        public bool ShowExpectedValues
+        {
+            get => _ShowExpectedValues;
+            set
+            {
+                if (_ShowExpectedValues == value) return;
+                _ShowExpectedValues = value;
+                OnPropertyChanged(nameof(ShowExpectedValues));
+                OnPropertyChanged(nameof(ExpectedValuesVisibility));
+            }
+        }
+
+        public Visibility ExpectedValuesVisibility => ShowExpectedValues ? Visibility.Visible : Visibility.Collapsed;
 
         public MainWindow()
         {

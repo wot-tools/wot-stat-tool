@@ -19,7 +19,9 @@ namespace WotStatsTool
             ID = source.Key;
             ExpectedValues = expectedValues;
         }
-        
+
+        public double ExpectedFrag => ExpectedValues.Frags;
+
         public double WN8
         {
             get
