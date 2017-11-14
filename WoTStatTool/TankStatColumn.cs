@@ -13,14 +13,18 @@ namespace WotStatsTool
         public static Dictionary<int, Tank> Tanks;
         public int ID { get; private set; }
         private ExpectedValues ExpectedValues;
+        private ExpectedValues ExpectedValues2;
 
-        public TankStatColumn(KeyValuePair<int, Statistics> source, ExpectedValues expectedValues) : base(source.Value)
+        public TankStatColumn(KeyValuePair<int, Statistics> source, ExpectedValues expectedValues, ExpectedValues expectedValues2) : base(source.Value)
         {
             ID = source.Key;
             ExpectedValues = expectedValues;
+            ExpectedValues2 = expectedValues2;
         }
 
-        public double ExpectedFrag => ExpectedValues.Frags;
+        public double ExpectedFrag => ExpectedValues?.Frags ?? -1;
+        public double ExpectedFrag2 => ExpectedValues2?.Frags ?? -1;
+        public double ExpectedFragDiff => ExpectedFrag - ExpectedFrag2;
 
         public double WN8
         {

@@ -49,7 +49,10 @@ namespace WotStatsTool
 
         private Lazy<ExpectedValuesSelectorViewModel> _ExpectedValuesSelector;
         public ExpectedValuesSelectorViewModel ExpectedValueSelector => _ExpectedValuesSelector.Value;
-        
+
+        private Lazy<ExpectedValuesSelectorViewModel> _ExpectedValuesSelector2;
+        public ExpectedValuesSelectorViewModel ExpectedValueSelector2 => _ExpectedValuesSelector2.Value;
+
         // when userID changed
         //put into datepicker / snapshotpicker of some kind
         //DaySnapshot = new DaySnapshot(_ActivePlayer.ID);
@@ -75,6 +78,21 @@ namespace WotStatsTool
 
         public Visibility ExpectedValuesVisibility => ShowExpectedValues ? Visibility.Visible : Visibility.Collapsed;
 
+        private bool _CompareExpectedValues = false;
+        public bool CompareExpectedValues
+        {
+            get => _CompareExpectedValues;
+            set
+            {
+                if (_CompareExpectedValues == value) return;
+                _CompareExpectedValues = value;
+                OnPropertyChanged(nameof(CompareExpectedValues));
+                OnPropertyChanged(nameof(CompareValuesVisibility));
+            }
+        }
+
+        public Visibility CompareValuesVisibility => CompareExpectedValues ? Visibility.Visible : Visibility.Collapsed;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -87,6 +105,8 @@ namespace WotStatsTool
             _PlayerSelect = new Lazy<PlayerSelectViewModel>(() => new PlayerSelectViewModel(Client, DisplayRangeSelector));
             _DisplayRangeSelector = new Lazy<DisplayRangeSelectorViewModel>(() => new DisplayRangeSelectorViewModel(Client));
             _ExpectedValuesSelector = new Lazy<ExpectedValuesSelectorViewModel>(
+                () => new ExpectedValuesSelectorViewModel(new VbaddictExpectedValueList(), new XvmExpectedValueList()));
+            _ExpectedValuesSelector2 = new Lazy<ExpectedValuesSelectorViewModel>(
                 () => new ExpectedValuesSelectorViewModel(new VbaddictExpectedValueList(), new XvmExpectedValueList()));
 
             //set regular sort direction to descending instead of ascending
@@ -106,6 +126,7 @@ namespace WotStatsTool
             TankFilter.PropertyChanged += CreateUpdateDataGridListener(nameof(TankFilter.TankFilter));
             DisplayRangeSelector.PropertyChanged += CreateUpdateDataGridListener(nameof(DisplayRangeSelector.Data));
             ExpectedValueSelector.PropertyChanged += CreateUpdateDataGridListener(nameof(ExpectedValueSelector.SelectedExpectedValues));
+            ExpectedValueSelector2.PropertyChanged += CreateUpdateDataGridListener(nameof(ExpectedValueSelector2.SelectedExpectedValues));
 
             Title = $"WoT Stat Tool {Assembly.GetExecutingAssembly().GetName().Version}";
         }
@@ -121,7 +142,8 @@ namespace WotStatsTool
         private TankStatColumn MakeColumn(KeyValuePair<int, Statistics> kvp)
         {
             ExpectedValueSelector.SelectedExpectedValues.TryGetValue(kvp.Key, out ExpectedValues values);
-            return new TankStatColumn(kvp, values);
+            ExpectedValueSelector2.SelectedExpectedValues.TryGetValue(kvp.Key, out ExpectedValues values2);
+            return new TankStatColumn(kvp, values, values2);
         }
 
         private void SetDataGrid(Dictionary<int, Statistics> stats)
