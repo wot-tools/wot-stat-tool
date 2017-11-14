@@ -25,60 +25,25 @@ namespace WotStatsTool
     /// </summary>
     public partial class MainWindow : Window
     {
-        private WGApiClient Client = new WGApiClient("https://api.worldoftanks", Region.eu, ApiKey.Key, new Logger());
-        public ObservableCollection<TankStatColumn> Collection { get; set; } = new ObservableCollection<TankStatColumn>();
-        
+        private readonly WGApiClient Client = new WGApiClient("https://api.worldoftanks", Region.eu, ApiKey.Key, new Logger());
+        public ObservableCollection<TankStatColumn> Collection { get; } = new ObservableCollection<TankStatColumn>();
+
         //viewmodels are initialized this way to ensure the binding works
         //binding does not work here when a viewmodel is directly assigned anywhere except here
         //if new assignments to viewmodels are needed, implement INotifyPropertyChanged on mainwindow
-        private StatTotalsViewModel _StatTotals;
-        public StatTotalsViewModel StatTotals
-        {
-            get
-            {
-                if (_StatTotals == null)
-                    _StatTotals = new StatTotalsViewModel();
-                return _StatTotals;
-            }
-        }
+        private readonly Lazy<StatTotalsViewModel> _StatTotals;
+        public StatTotalsViewModel StatTotals => _StatTotals.Value;
 
-        private TankFilterViewModel _TankFilter;
-        public TankFilterViewModel TankFilter
-        {
-            get
-            {
-                if (_TankFilter == null)
-                    _TankFilter = new TankFilterViewModel();
-                return _TankFilter;
-            }
-        }
+        private Lazy<TankFilterViewModel> _TankFilter;
+        public TankFilterViewModel TankFilter => _TankFilter.Value;
 
-        private PlayerSelectViewModel _PlayerSelect;
-        public PlayerSelectViewModel PlayerSelect
-        {
-            get
-            {
-                if (_PlayerSelect == null)
-                    //maybe wrap client in a lambda to account for a changing client?
-                    _PlayerSelect = new PlayerSelectViewModel(Client, DisplayRangeSelector);
-                return _PlayerSelect;
-            }
-        }
+        private Lazy<PlayerSelectViewModel> _PlayerSelect;
+        public PlayerSelectViewModel PlayerSelect => _PlayerSelect.Value;
 
-        private DisplayRangeSelectorViewModel _DisplayRangeSelector;
-        public DisplayRangeSelectorViewModel DisplayRangeSelector
-        {
-            get
-            {
-                if (_DisplayRangeSelector == null)
-                    _DisplayRangeSelector = new DisplayRangeSelectorViewModel(Client);
-                return _DisplayRangeSelector;
-            }
-        }
+        private Lazy<DisplayRangeSelectorViewModel> _DisplayRangeSelector;
+        public DisplayRangeSelectorViewModel DisplayRangeSelector => _DisplayRangeSelector.Value;
 
-        private Lazy<ExpectedValuesSelectorViewModel> _ExpectedValuesSelector = 
-            new Lazy<ExpectedValuesSelectorViewModel>(
-                () => new ExpectedValuesSelectorViewModel(new VbaddictExpectedValueList(), new XvmExpectedValueList()));
+        private Lazy<ExpectedValuesSelectorViewModel> _ExpectedValuesSelector;
         public ExpectedValuesSelectorViewModel ExpectedValueSelector => _ExpectedValuesSelector.Value;
         
         // when userID changed
@@ -97,6 +62,13 @@ namespace WotStatsTool
 
             //temp set context to itself
             DataContext = this;
+
+            _StatTotals = new Lazy<StatTotalsViewModel>(() => new StatTotalsViewModel());
+            _TankFilter = new Lazy<TankFilterViewModel>(() => new TankFilterViewModel());
+            _PlayerSelect = new Lazy<PlayerSelectViewModel>(() => new PlayerSelectViewModel(Client, DisplayRangeSelector));
+            _DisplayRangeSelector = new Lazy<DisplayRangeSelectorViewModel>(() => new DisplayRangeSelectorViewModel(Client));
+            _ExpectedValuesSelector = new Lazy<ExpectedValuesSelectorViewModel>(
+                () => new ExpectedValuesSelectorViewModel(new VbaddictExpectedValueList(), new XvmExpectedValueList()));
 
             //set regular sort direction to descending instead of ascending
             dgOverview.Sorting += (o, e) => e.Column.SortDirection = e.Column.SortDirection ?? System.ComponentModel.ListSortDirection.Ascending;
