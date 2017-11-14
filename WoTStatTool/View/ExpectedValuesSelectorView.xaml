@@ -8,8 +8,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel>
-            <RadioButton Content="VbAddict" Checked="{Binding Path=VbAddictSelected}" />
-            <RadioButton Content="XVM" Checked="{Binding Path=XvmSelected}" />
+            <RadioButton Content="VbAddict" IsChecked="{Binding Path=VbAddictSelected}" />
+            <RadioButton Content="XVM" IsChecked="{Binding Path=XvmSelected}" />
+            <ComboBox ItemsSource="{Binding Path=Versions}"
+                      SelectedItem="{Binding Path=SelectedVersion}" />
         </StackPanel>
     </Grid>
 </UserControl>

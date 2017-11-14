@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,28 +11,29 @@ namespace WotStatsTool.ViewModel
 {
     public class ExpectedValuesSelectorViewModel : BaseViewModel
     {
-        private bool _VbAddictSelected;
         public bool VbAddictSelected
         {
-            get => _VbAddictSelected;
-            set
-            {
-                if (_VbAddictSelected == value) return;
-                _VbAddictSelected = value;
-                OnPropertyChanged(nameof(VbAddictSelected));
-                OnPropertyChanged(nameof(CurrentlySelectedList));
-            }
+            get => RadioState_ == RadioState.VbAddict;
+            set => RadioButtonPropertyChanges(RadioState.VbAddict, nameof(VbAddictSelected), value);
         }
-
-        private bool _XvmSelected;
+        
         public bool XvmSelected
         {
-            get => _XvmSelected;
-            set
+            get => RadioState_ == RadioState.Xvm;
+            set => RadioButtonPropertyChanges(RadioState.Xvm, nameof(XvmSelected), value);
+        }
+
+        private enum RadioState { VbAddict, Xvm }
+
+        private RadioState RadioState_;
+
+        private void RadioButtonPropertyChanges(RadioState state, string propertyName, bool value)
+        {
+            //ignore unselecting of the previous selected radio button
+            if (value)
             {
-                if (_XvmSelected == value) return;
-                _XvmSelected = value;
-                OnPropertyChanged(nameof(XvmSelected));
+                RadioState_ = state;
+                OnPropertyChanged(propertyName);
                 OnPropertyChanged(nameof(CurrentlySelectedList));
             }
         }
@@ -43,19 +45,61 @@ namespace WotStatsTool.ViewModel
         {
             get
             {
-                if (VbAddictSelected) return VbAddict;
-                if (XvmSelected) return Xvm;
-                throw new NotImplementedException("undefined state in ExpectedValuesSelectorViewModel: no source selected");
+                switch (RadioState_)
+                {
+                    case RadioState.VbAddict: return VbAddict;
+                    case RadioState.Xvm: return Xvm;
+                    default:  throw new NotImplementedException("undefined state in ExpectedValuesSelectorViewModel: no source selected");
+                }
             }
         }
 
-        public readonly ObservableCollection<string> Versions = new ObservableCollection<string>();
+        private string _SelectedVersion;
+        public string SelectedVersion
+        {
+            get => _SelectedVersion;
+            set
+            {
+                //when clearing the Versions, this will be set to null. After setting the Versions, we update this anyways, so we can just ignore it.
+                if (value == null) return;
+                if (_SelectedVersion == value) return;
+                _SelectedVersion = value;
+                OnPropertyChanged(nameof(SelectedVersion));
+                OnPropertyChanged(nameof(SelectedExpectedValues));
+            }
+        }
+
+        public Dictionary<int, ExpectedValues> SelectedExpectedValues => CurrentlySelectedList[SelectedVersion];
+
+        public ObservableCollection<string> Versions { get; } = new ObservableCollection<string>();
 
         public ExpectedValuesSelectorViewModel(VbaddictExpectedValueList vbAddict, XvmExpectedValueList xvm)
         {
             VbAddict = vbAddict;
             Xvm = xvm;
-            XvmSelected = true;
+            Initialize().ContinueWith(t => XvmSelected = true, TaskContinuationOptions.ExecuteSynchronously);
+            PropertyChanged += ListenForSelectedListChanges;
+        }
+
+        private async Task Initialize()
+        {
+            await Task.WhenAll(VbAddict.Initialize(), Xvm.Initialize());
+        }
+
+        private void SetVersions(IEnumerable<string> versions)
+        {
+            Versions.Clear();
+            foreach (string version in versions)
+                Versions.Add(version);
+        }
+
+        private void ListenForSelectedListChanges(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CurrentlySelectedList))
+            {
+                SetVersions(CurrentlySelectedList.Versions);
+                SelectedVersion = Versions.Last();
+            }
         }
     }
 }

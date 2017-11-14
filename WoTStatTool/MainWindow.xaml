@@ -18,9 +18,7 @@
         <GroupBox Header="Check player" Grid.Row="0" Margin="0,0,0,6">
             <StackPanel>
                 <view:PlayerSelectView DataContext="{Binding Path=PlayerSelect}" />
-                <ComboBox ItemsSource="{Binding Path=Versions}"
-                          SelectedItem="{Binding Path=SelectedExpectedVersion}"
-                          IsEnabled="{Binding Path=ValueListLoading.IsCompleted}"/>
+                <view:ExpectedValuesSelectorView DataContext="{Binding Path=ExpectedValueSelector}" />
             </StackPanel>
         </GroupBox>
 

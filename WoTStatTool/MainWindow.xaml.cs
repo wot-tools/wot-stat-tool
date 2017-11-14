@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -25,30 +26,8 @@ namespace WotStatsTool
     public partial class MainWindow : Window
     {
         private WGApiClient Client = new WGApiClient("https://api.worldoftanks", Region.eu, ApiKey.Key, new Logger());
-        private IExpectedValueList ExpectedValueList = new XvmExpectedValueList();
         public ObservableCollection<TankStatColumn> Collection { get; set; } = new ObservableCollection<TankStatColumn>();
-
-        public ObservableCollection<string> Versions { get; set; } = new ObservableCollection<string>();
-
-        private void SetVersions(IEnumerable<string> versions)
-        {
-            Versions.Clear();
-            foreach (string version in versions)
-                Versions.Add(version);
-        }
-
-        public string _SelectedExpectedVersion;
-        public string SelectedExpectedVersion
-        {
-            get => _SelectedExpectedVersion;
-            set
-            {
-                if (_SelectedExpectedVersion == value) return;
-                _SelectedExpectedVersion = value;
-                UpdateDataGrid();
-            }
-        }
-
+        
         //viewmodels are initialized this way to ensure the binding works
         //binding does not work here when a viewmodel is directly assigned anywhere except here
         //if new assignments to viewmodels are needed, implement INotifyPropertyChanged on mainwindow
@@ -97,6 +76,11 @@ namespace WotStatsTool
             }
         }
 
+        private Lazy<ExpectedValuesSelectorViewModel> _ExpectedValuesSelector = 
+            new Lazy<ExpectedValuesSelectorViewModel>(
+                () => new ExpectedValuesSelectorViewModel(new VbaddictExpectedValueList(), new XvmExpectedValueList()));
+        public ExpectedValuesSelectorViewModel ExpectedValueSelector => _ExpectedValuesSelector.Value;
+        
         // when userID changed
         //put into datepicker / snapshotpicker of some kind
         //DaySnapshot = new DaySnapshot(_ActivePlayer.ID);
@@ -119,18 +103,6 @@ namespace WotStatsTool
 
             Helpers.PreventAsyncDeadlockHack(Client.GetVehiclesAsync(), t => TankStatColumn.Tanks = t.Result);
             
-            ValueListLoading = new NotifyTaskCompletion(ExpectedValueList.Initialize());
-            
-            ValueListLoading.PropertyChanged += (o, e) =>
-            {
-                if (e.PropertyName == nameof(ValueListLoading.IsSuccessfullyCompleted))
-                {
-                    SetVersions(ExpectedValueList.Versions);
-                    Console.WriteLine(Versions.Max());
-                    SelectedExpectedVersion = Versions.Max();
-                }
-            };
-
             //temp remove later
             PlayerSelect.PropertyChanged += (sender, e) =>
             {
@@ -140,13 +112,15 @@ namespace WotStatsTool
                     DisplayRangeSelector.LoadUser(PlayerSelect.UserID);
             };
 
-
-
-            TankFilter.PropertyChanged += (sender, e) => { if (e.PropertyName == "TankFilter") UpdateDataGrid(); };
-            DisplayRangeSelector.PropertyChanged += (sender, e) => { if (e.PropertyName == "Data") UpdateDataGrid(); };
+            TankFilter.PropertyChanged += CreateUpdateDataGridListener(nameof(TankFilter.TankFilter));
+            DisplayRangeSelector.PropertyChanged += CreateUpdateDataGridListener(nameof(DisplayRangeSelector.Data));
+            ExpectedValueSelector.PropertyChanged += CreateUpdateDataGridListener(nameof(ExpectedValueSelector.SelectedExpectedValues));
 
             Title = $"WoT Stat Tool {Assembly.GetExecutingAssembly().GetName().Version}";
         }
+
+        private PropertyChangedEventHandler CreateUpdateDataGridListener(string propertyName) =>
+            (sender, e) => { if (e.PropertyName == propertyName) UpdateDataGrid(); };
 
         private void UpdateDataGrid()
         {
@@ -155,7 +129,7 @@ namespace WotStatsTool
 
         private TankStatColumn MakeColumn(KeyValuePair<int, Statistics> kvp)
         {
-            ExpectedValueList[SelectedExpectedVersion].TryGetValue(kvp.Key, out ExpectedValues values);
+            ExpectedValueSelector.SelectedExpectedValues.TryGetValue(kvp.Key, out ExpectedValues values);
             return new TankStatColumn(kvp, values);
         }
 
@@ -171,7 +145,7 @@ namespace WotStatsTool
             foreach (TankStatColumn column in columns)
                 Collection.Add(column);
             //lblWN8.Text = WN8.AccountWN8(ExpectedValueList, WN8Version, columns).ToString("N2");
-            StatTotals.Update(ExpectedValueList[SelectedExpectedVersion], columns);
+            StatTotals.Update(ExpectedValueSelector.SelectedExpectedValues, columns);
         }
     }
 }
