@@ -73,17 +73,31 @@ namespace WotStatsTool.ViewModel
 
         public ObservableCollection<string> Versions { get; } = new ObservableCollection<string>();
 
+        private bool _IsInitialized = false;
+        public bool IsInitialized
+        {
+            get => _IsInitialized;
+            private set
+            {
+                if (_IsInitialized == value) return;
+                _IsInitialized = value;
+                OnPropertyChanged(nameof(IsInitialized));
+            }
+        }
+
         public ExpectedValuesSelectorViewModel(VbaddictExpectedValueList vbAddict, XvmExpectedValueList xvm)
         {
             VbAddict = vbAddict;
             Xvm = xvm;
-            Initialize().ContinueWith(t => XvmSelected = true, TaskContinuationOptions.ExecuteSynchronously);
+            Initialize();
             PropertyChanged += ListenForSelectedListChanges;
         }
 
         private async Task Initialize()
         {
             await Task.WhenAll(VbAddict.Initialize(), Xvm.Initialize());
+            XvmSelected = true;
+            IsInitialized = true;
         }
 
         private void SetVersions(IEnumerable<string> versions)
