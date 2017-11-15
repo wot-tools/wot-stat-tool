@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -161,6 +162,27 @@ namespace WotStatsTool
                 Collection.Add(row);
             //lblWN8.Text = WN8.AccountWN8(ExpectedValueList, WN8Version, columns).ToString("N2");
             StatTotals.Update(ExpectedValueSelector.SelectedExpectedValues, rows.Select(r => r.ToTankStatistics()));
+        }
+    }
+
+    public class IsLessThanConverter : IValueConverter
+    {
+        public static readonly IValueConverter Instance = new IsLessThanConverter();
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double val;
+            if (String.IsNullOrWhiteSpace(value as string))
+                val = 0;
+            else
+                val = double.Parse(value as string, culture.NumberFormat);
+            double compareTo = double.Parse(parameter as string, culture.NumberFormat);
+            return val < compareTo;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
