@@ -125,7 +125,7 @@ namespace WotStatsTool
                     DisplayRangeSelector.LoadUser(PlayerSelect.UserID);
             };
 
-            TankFilter.PropertyChanged += (sender, e) => { foreach (var r in Collection) r.ApplyFilter(TankFilter.TankFilter); }; //CreateUpdateDataGridListener(nameof(TankFilter.TankFilter));
+            TankFilter.PropertyChanged += CreateUpdateDataGridListener(nameof(TankFilter.TankFilter));
             DisplayRangeSelector.PropertyChanged += CreateUpdateDataGridListener(nameof(DisplayRangeSelector.Data));
             ExpectedValueSelector.PropertyChanged += CreateUpdateDataGridListener(nameof(ExpectedValueSelector.SelectedExpectedValues));
             ExpectedValueSelector2.PropertyChanged += CreateUpdateDataGridListener(nameof(ExpectedValueSelector2.SelectedExpectedValues));
@@ -156,7 +156,7 @@ namespace WotStatsTool
                 StatTotals.Reset();
                 return;
             }
-            var rows = stats.Select(MakeRow).ToArray();
+            var rows = stats.Select(MakeRow).Where(r => r.MeetsFilterCriteria(TankFilter.TankFilter)).ToArray();
             foreach (TankStatisticsViewModel row in rows)
                 Collection.Add(row);
             //lblWN8.Text = WN8.AccountWN8(ExpectedValueList, WN8Version, columns).ToString("N2");

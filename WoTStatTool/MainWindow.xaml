@@ -61,13 +61,6 @@
                 <Style TargetType="TextBlock" x:Key="AlignRight">
                     <Setter Property="HorizontalAlignment" Value="Right"/>
                 </Style>
-                <Style TargetType="DataGridRow">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsHidden}" Value="True">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vehicle" Binding="{Binding Name}" Width="200"/>
