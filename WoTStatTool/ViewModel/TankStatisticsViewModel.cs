@@ -83,7 +83,24 @@ namespace WotStatsTool.ViewModel
         public string Type => Tank?.VehicleType.ToString();
         public int Tier => Tank?.Tier ?? -1;
 
-        public bool MeetsFilterCriteria(TankFilter filter)
+        private bool _IsHidden;
+        public bool IsHidden
+        {
+            get => _IsHidden;
+            set
+            {
+                if (_IsHidden == value) return;
+                _IsHidden = value;
+                OnPropertyChanged(nameof(IsHidden));
+            }
+        }
+
+        public void ApplyFilter(TankFilter filter)
+        {
+            IsHidden = !MeetsFilterCriteria(filter);
+        }
+
+        private bool MeetsFilterCriteria(TankFilter filter)
         {
             if (Tank == null)
                 return false;
