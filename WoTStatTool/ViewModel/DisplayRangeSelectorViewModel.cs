@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WGApi;
+using WotStatsTool.Model;
 
 namespace WotStatsTool.ViewModel
 {
@@ -45,8 +46,8 @@ namespace WotStatsTool.ViewModel
             }
         }
 
-        private Dictionary<int, Statistics> _Data;
-        public Dictionary<int, Statistics> Data
+        private IEnumerable<TankStatistics> _Data;
+        public IEnumerable<TankStatistics> Data
         {
             get => _Data;
             set

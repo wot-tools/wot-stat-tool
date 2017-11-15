@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WGApi;
+using WotStatsTool.Model;
 using WotStatsTool.ViewModel;
 
 namespace WotStatsTool
@@ -30,7 +31,7 @@ namespace WotStatsTool
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         private readonly WGApiClient Client = new WGApiClient("https://api.worldoftanks", Region.eu, ApiKey.Key, new Logger());
-        public ObservableCollection<TankStatColumn> Collection { get; } = new ObservableCollection<TankStatColumn>();
+        public ObservableCollection<TankStatisticsViewModel> Collection { get; } = new ObservableCollection<TankStatisticsViewModel>();
 
         //viewmodels are initialized this way to ensure the binding works
         //binding does not work here when a viewmodel is directly assigned anywhere except here
@@ -96,6 +97,7 @@ namespace WotStatsTool
         public MainWindow()
         {
             InitializeComponent();
+            //DaySnapshot.ConvertOldSnapshots();
 
             //temp set context to itself
             DataContext = this;
@@ -112,7 +114,7 @@ namespace WotStatsTool
             //set regular sort direction to descending instead of ascending
             dgOverview.Sorting += (o, e) => e.Column.SortDirection = e.Column.SortDirection ?? System.ComponentModel.ListSortDirection.Ascending;
 
-            Helpers.PreventAsyncDeadlockHack(Client.GetVehiclesAsync(), t => TankStatColumn.Tanks = t.Result);
+            Helpers.PreventAsyncDeadlockHack(Client.GetVehiclesAsync(), t => TankStatisticsViewModel.Tanks = t.Result);
             
             //temp remove later
             PlayerSelect.PropertyChanged += (sender, e) =>
@@ -139,14 +141,14 @@ namespace WotStatsTool
             SetDataGrid(DisplayRangeSelector.Data);
         }
 
-        private TankStatColumn MakeColumn(KeyValuePair<int, Statistics> kvp)
+        private TankStatisticsViewModel MakeRow(TankStatistics stats)
         {
-            ExpectedValueSelector.SelectedExpectedValues.TryGetValue(kvp.Key, out ExpectedValues values);
-            ExpectedValueSelector2.SelectedExpectedValues.TryGetValue(kvp.Key, out ExpectedValues values2);
-            return new TankStatColumn(kvp, values, values2);
+            ExpectedValueSelector.SelectedExpectedValues.TryGetValue(stats.TankID, out ExpectedValues values);
+            ExpectedValueSelector2.SelectedExpectedValues.TryGetValue(stats.TankID, out ExpectedValues values2);
+            return new TankStatisticsViewModel(stats, values, values2);
         }
 
-        private void SetDataGrid(Dictionary<int, Statistics> stats)
+        private void SetDataGrid(IEnumerable<TankStatistics> stats)
         {
             Collection.Clear();
             if (stats == null)
@@ -154,11 +156,11 @@ namespace WotStatsTool
                 StatTotals.Reset();
                 return;
             }
-            var columns = stats.Select(MakeColumn).Where(c => c.MeetsFilterCriteria(TankFilter.TankFilter)).ToArray();
-            foreach (TankStatColumn column in columns)
-                Collection.Add(column);
+            var rows = stats.Select(MakeRow).Where(r => r.MeetsFilterCriteria(TankFilter.TankFilter)).ToArray();
+            foreach (TankStatisticsViewModel row in rows)
+                Collection.Add(row);
             //lblWN8.Text = WN8.AccountWN8(ExpectedValueList, WN8Version, columns).ToString("N2");
-            StatTotals.Update(ExpectedValueSelector.SelectedExpectedValues, columns);
+            StatTotals.Update(ExpectedValueSelector.SelectedExpectedValues, rows.Select(r => r.ToTankStatistics()));
         }
     }
 }

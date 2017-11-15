@@ -65,6 +65,7 @@
                     <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="60"/>
                     <DataGridTextColumn Header="Nation" Binding="{Binding Nation}" Width="120"/>
                     <DataGridTextColumn Header="Tier" Binding="{Binding Tier, StringFormat=N0}" Width="30" ElementStyle="{StaticResource AlignRight}"/>
+                    <DataGridTextColumn Header="MoE" Binding="{Binding MarksOnGun, StringFormat=N0}" Width="30" ElementStyle="{StaticResource AlignRight}"/>
                     <DataGridTextColumn Header="Battles" Binding="{Binding Battles, StringFormat=N0}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                     <DataGridTextColumn Header="DPG" Binding="{Binding AvgDamage, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                     <DataGridTextColumn Header="Avg Spot" Binding="{Binding AvgSpotted, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
@@ -75,18 +76,18 @@
                     <DataGridTextColumn Header="Avg XP" Binding="{Binding AvgExperience, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                     <DataGridTextColumn Header="Winrate" Binding="{Binding Winrate, StringFormat=P2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                     <DataGridTextColumn Header="WN8" Binding="{Binding WN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
-                    <DataGridTextColumn Header="Expected Frag" Binding="{Binding ExpectedFrag, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"
+                    <DataGridTextColumn Header="Expected Frag" Binding="{Binding ExFrags, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"
                                         Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
                     <DataGridTemplateColumn Header="Frags" Width="60">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
                                     <TextBlock Text="{Binding AvgFrags, StringFormat=N2}" HorizontalAlignment="Right" />
-                                    <TextBlock Text="{Binding ExpectedFrag, StringFormat=N2}" HorizontalAlignment="Right"
+                                    <TextBlock Text="{Binding ExFrags, StringFormat=N2}" HorizontalAlignment="Right"
                                                Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
-                                    <TextBlock Text="{Binding ExpectedFrag2, StringFormat=N2}" HorizontalAlignment="Right"
+                                    <TextBlock Text="{Binding CoFrags, StringFormat=N2}" HorizontalAlignment="Right"
                                                Visibility="{Binding Visibility, Source={x:Reference compareVisibility}}" />
-                                    <TextBlock Text="{Binding ExpectedFragDiff, StringFormat=+ 0.00;- 0.00;0}" HorizontalAlignment="Right"
+                                    <TextBlock Text="{Binding DeltaFrags, StringFormat=+ 0.00;- 0.00;0}" HorizontalAlignment="Right"
                                                Visibility="{Binding Visibility, Source={x:Reference compareVisibility}}" />
                                 </StackPanel>
                             </DataTemplate>

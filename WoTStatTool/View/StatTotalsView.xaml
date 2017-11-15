@@ -69,7 +69,7 @@
         <TextBlock Grid.Column="0" Grid.Row="4"
                    Text="Damage" />
         <TextBlock Grid.Column="2" Grid.Row="4"
-                   Text="{Binding Path=AverageDamage, StringFormat={}{0:N2}}" />
+                   Text="{Binding Path=AvgDamage, StringFormat={}{0:N2}}" />
         <TextBlock Grid.Column="4" Grid.Row="4"
                    Text="{Binding Path=Damage, StringFormat={}{0:N0}}" />
 
@@ -77,7 +77,7 @@
         <TextBlock Grid.Column="0" Grid.Row="6"
                    Text="Damage Received" />
         <TextBlock Grid.Column="2" Grid.Row="6"
-                   Text="{Binding Path=AverageDamageReceived, StringFormat={}{0:N2}}" />
+                   Text="{Binding Path=AvgDamageReceived, StringFormat={}{0:N2}}" />
         <TextBlock Grid.Column="4" Grid.Row="6"
                    Text="{Binding Path=DamageReceived, StringFormat={}{0:N0}}" />
 
@@ -85,7 +85,7 @@
         <TextBlock Grid.Column="0" Grid.Row="8"
                    Text="Cap" />
         <TextBlock Grid.Column="2" Grid.Row="8"
-                   Text="{Binding Path=AverageCap, StringFormat={}{0:N2}}" />
+                   Text="{Binding Path=AvgCap, StringFormat={}{0:N2}}" />
         <TextBlock Grid.Column="4" Grid.Row="8"
                    Text="{Binding Path=Cap, StringFormat={}{0:N0}}" />
 
@@ -93,7 +93,7 @@
         <TextBlock Grid.Column="0" Grid.Row="10"
                    Text="Decap" />
         <TextBlock Grid.Column="2" Grid.Row="10"
-                   Text="{Binding Path=AverageDecap, StringFormat={}{0:N2}}" />
+                   Text="{Binding Path=AvgDecap, StringFormat={}{0:N2}}" />
         <TextBlock Grid.Column="4" Grid.Row="10"
                    Text="{Binding Path=Decap, StringFormat={}{0:N0}}" />
 
@@ -101,7 +101,7 @@
         <TextBlock Grid.Column="0" Grid.Row="12"
                    Text="Experience" />
         <TextBlock Grid.Column="2" Grid.Row="12"
-                   Text="{Binding Path=AverageExperience, StringFormat={}{0:N2}}" />
+                   Text="{Binding Path=AvgExperience, StringFormat={}{0:N2}}" />
         <TextBlock Grid.Column="4" Grid.Row="12"
                    Text="{Binding Path=Experience, StringFormat={}{0:N0}}" />
 
@@ -109,7 +109,7 @@
         <TextBlock Grid.Column="0" Grid.Row="14"
                    Text="Frags" />
         <TextBlock Grid.Column="2" Grid.Row="14"
-                   Text="{Binding Path=AverageFrags, StringFormat={}{0:N2}}" />
+                   Text="{Binding Path=AvgFrags, StringFormat={}{0:N2}}" />
         <TextBlock Grid.Column="4" Grid.Row="14"
                    Text="{Binding Path=Frags, StringFormat={}{0:N0}}" />
 
@@ -117,7 +117,7 @@
         <TextBlock Grid.Column="0" Grid.Row="16"
                    Text="Spots" />
         <TextBlock Grid.Column="2" Grid.Row="16"
-                   Text="{Binding Path=AverageSpotted, StringFormat={}{0:N2}}" />
+                   Text="{Binding Path=AvgSpotted, StringFormat={}{0:N2}}" />
         <TextBlock Grid.Column="4" Grid.Row="16"
                    Text="{Binding Path=Spotted, StringFormat={}{0:N0}}" />
 
@@ -125,7 +125,7 @@
         <TextBlock Grid.Column="0" Grid.Row="18"
                    Text="Survived" />
         <TextBlock Grid.Column="2" Grid.Row="18"
-                   Text="{Binding Path=AverageSurvivedBattles, StringFormat={}{0:P2}}" />
+                   Text="{Binding Path=AvgSurvivedBattles, StringFormat={}{0:P2}}" />
         <TextBlock Grid.Column="4" Grid.Row="18"
                    Text="{Binding Path=SurvivedBattles, StringFormat={}{0:N0}}" />
     </Grid>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using WGApi;
+using WotStatsTool.Model;
 
 namespace WotStatsTool
 {
@@ -40,19 +41,24 @@ namespace WotStatsTool
             System.IO.Directory.CreateDirectory(Directory);
         }
 
-        public Dictionary<int, Statistics> this[DateTime date]
-        {
-            get
-            {
-                return Load(date);
-            }
-        }
+        public IEnumerable<TankStatistics> this[DateTime date] => Load(date);
 
         public async Task<DateTime> CreateNewSnapshotAsync(WGApiClient client)
         {
-            var stats = await client.GetPlayerTankStatsAsync(ID);
-            var newSnapshot = stats.ToDictionary(s => s.TankID, s => s.Stats);
+            var stats = client.GetPlayerTankStatsAsync(ID);
+            var marks = client.GetPlayerMarksAsync(ID);
+            await Task.WhenAll(stats, marks);
 
+            var marksDict = marks.Result.ToDictionary(m => m.TankID, m => m.Mark);
+            Func<int, int> tryGetMark = id =>
+            {
+                if (marksDict.TryGetValue(id, out int mark))
+                    return mark;
+                return 0;
+            };
+
+            var newSnapshot = stats.Result.Select(s => new TankStatistics(s.TankID, s.Stats, tryGetMark(s.TankID)));
+            
             DateTime now = DateTime.Now;
             if (false == AvailableDates.Any() || CreateIntermediateSnapshot(Load(AvailableDates.Max()), newSnapshot).Any())
             {
@@ -62,35 +68,52 @@ namespace WotStatsTool
             return DateTime.MinValue;
         }
 
-        private async Task SaveAsync(Dictionary<int, Statistics> data, DateTime date)
+        private async Task SaveAsync(IEnumerable<TankStatistics> data, DateTime date)
         {
             using (Stream stream = File.Create(Path.Combine(Directory, date.Ticks.ToString())))
             using (StreamWriter writer = new StreamWriter(stream))
                 await writer.WriteAsync(JsonConvert.SerializeObject(data));
         }
 
-        private Dictionary<int, Statistics> Load(DateTime date)
+        private IEnumerable<TankStatistics> Load(DateTime date)
         {
             using (Stream stream = File.OpenRead(Path.Combine(Directory, date.Ticks.ToString())))
             using (StreamReader reader = new StreamReader(stream))
-                return JsonConvert.DeserializeObject<Dictionary<int, Statistics>>(reader.ReadToEnd());
+                return JsonConvert.DeserializeObject<TankStatistics[]>(reader.ReadToEnd());
         }
 
-        public Dictionary<int, Statistics> CreateIntermediateSnapshot(DateTime begin, DateTime end)
+        public static void ConvertOldSnapshots()
+        {
+            foreach(string dir in System.IO.Directory.GetDirectories(BaseDirectory))
+                foreach(string path in System.IO.Directory.GetFiles(dir))
+                {
+                    Dictionary<int, Statistics> shot;
+                    using (Stream stream = File.OpenRead(path))
+                    using (StreamReader reader = new StreamReader(stream))
+                        shot = JsonConvert.DeserializeObject<Dictionary<int, Statistics>>(reader.ReadToEnd());
+
+                    using (Stream stream = File.Create(path))
+                    using (StreamWriter writer = new StreamWriter(stream))
+                        writer.Write(JsonConvert.SerializeObject(shot.Select(s => new TankStatistics(s.Key, s.Value, 0))));
+                }
+        }
+
+        public IEnumerable<TankStatistics> CreateIntermediateSnapshot(DateTime begin, DateTime end)
         {
             return CreateIntermediateSnapshot(this[begin], this[end]);
         }
 
-        public static Dictionary<int, Statistics> CreateIntermediateSnapshot(Dictionary<int, Statistics> older, Dictionary<int, Statistics> newer)
+        public static IEnumerable<TankStatistics> CreateIntermediateSnapshot(IEnumerable<TankStatistics> older, IEnumerable<TankStatistics> newer)
         {
-            Dictionary<int, Statistics> result = new Dictionary<int, Statistics>();
-            foreach (var statPair in newer)
+            //marks on gun are currently ignored when comparing snapshots
+            var olderDict = older.ToDictionary(s => s.TankID, s => s.Statistics);
+
+            foreach (var new_ in newer)
             {
-                if (older.TryGetValue(statPair.Key, out Statistics olderStats) && statPair.Value.Battles == olderStats.Battles)
+                if (olderDict.TryGetValue(new_.TankID, out Statistics oldStats) && new_.Statistics.Battles == oldStats.Battles)
                     continue;
-                result.Add(statPair.Key, statPair.Value - olderStats);
+                yield return new TankStatistics(new_.TankID, new_.Statistics - oldStats, 0);
             }
-            return result;
         }
 
         public static IEnumerable<int> GetExistingPlayerIDs()
