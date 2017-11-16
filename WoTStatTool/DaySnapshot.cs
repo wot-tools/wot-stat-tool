@@ -28,8 +28,7 @@ namespace WotStatsTool
         {
             get
             {
-                Uri baseUri = new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-                return WebUtility.UrlDecode(Path.GetDirectoryName(baseUri.AbsolutePath));
+                return Path.GetFullPath("player_data");
             }
         }
 
