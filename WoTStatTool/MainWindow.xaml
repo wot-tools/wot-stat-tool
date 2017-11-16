@@ -69,18 +69,7 @@
                     </Style.Triggers>
                 </Style>
                 <Style TargetType="DataGridCell" x:Key="WN8ColorScaling">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=99999999}" Value="True"><Setter Property="Background" Value="#8225AD"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=2900}" Value="True"><Setter Property="Background" Value="#C64CFF"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=2450}" Value="True"><Setter Property="Background" Value="#00A0B8"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=2000}" Value="True"><Setter Property="Background" Value="#2AE4FF"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=1600}" Value="True"><Setter Property="Background" Value="#459300"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=1200}" Value="True"><Setter Property="Background" Value="#77E812"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=900}" Value="True"><Setter Property="Background" Value="#E6DF27"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=650}" Value="True"><Setter Property="Background" Value="#FF8A00"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=450}" Value="True"><Setter Property="Background" Value="#F11919"/></DataTrigger>
-                        <DataTrigger Binding="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:IsLessThanConverter.Instance}, ConverterParameter=300}" Value="True"><Setter Property="Background" Value="#BAAAAD"/></DataTrigger>
-                    </Style.Triggers>
+                    <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:Wn8ColorConverter.Instance}}"/>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
