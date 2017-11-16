@@ -118,7 +118,14 @@ namespace WotStatsTool
 
         public static IEnumerable<int> GetExistingPlayerIDs()
         {
-            return System.IO.Directory.GetDirectories(BaseDirectory).Select(ParsePlayerDirectory).Where(id => id > 0);
+            try
+            {
+                return System.IO.Directory.GetDirectories(BaseDirectory).Select(ParsePlayerDirectory).Where(id => id > 0);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                return Enumerable.Empty<int>();
+            }
         }
 
         private static int ParsePlayerDirectory(string path)

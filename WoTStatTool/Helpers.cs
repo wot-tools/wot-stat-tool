@@ -11,7 +11,7 @@ namespace WotStatsTool
         public static void PreventAsyncDeadlockHack<T>(Task<T> task, Action<Task<T>> afterCallAction)
         {
             //can't block on UI thread without causing a deadlock
-            task.ContinueWith(afterCallAction);
+            task.ContinueWith(afterCallAction, TaskContinuationOptions.ExecuteSynchronously);
 
 
 
