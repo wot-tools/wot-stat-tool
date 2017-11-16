@@ -17,12 +17,32 @@
         </Grid.RowDefinitions>
 
         <GroupBox Header="Check player" Grid.Row="0" Margin="0,0,0,6">
-            <StackPanel>
-                <view:PlayerSelectView DataContext="{Binding Path=PlayerSelect}" />
-                <view:ExpectedValuesSelectorView DataContext="{Binding Path=ExpectedValueSelector}" />
-                <CheckBox Content="compare expected values" IsChecked="{Binding CompareExpectedValues}"/>
-                <view:ExpectedValuesSelectorView DataContext="{Binding ExpectedValueSelector2}" Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=CompareValuesVisibility}"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <view:PlayerSelectView DataContext="{Binding Path=PlayerSelect}" Grid.ColumnSpan="3" Margin="0,0,0,3"/>
+
+                <GroupBox Header="Expected values" Grid.Column="0" Grid.Row="1">
+                    <view:ExpectedValuesSelectorView DataContext="{Binding Path=ExpectedValueSelector}" />
+                </GroupBox>
+
+                <GroupBox Grid.Column="1" Grid.Row="1">
+                    <GroupBox.Header>
+                        <CheckBox Content="compare expected values" IsChecked="{Binding CompareExpectedValues}"/>
+                    </GroupBox.Header>
+
+                    <view:ExpectedValuesSelectorView DataContext="{Binding ExpectedValueSelector2}"
+                                                     IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=CompareExpectedValues}"/>
+                </GroupBox>                
+            </Grid>
         </GroupBox>
 
         <GroupBox Header="Snapshots" Grid.Row="1" Margin="0,0,0,6">
