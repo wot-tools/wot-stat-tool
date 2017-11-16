@@ -80,7 +80,10 @@ namespace WotStatsTool.ViewModel
 
         private void DisplayExistingRecords()
         {
-            var task = Client.GetPlayerStatsAsync(DaySnapshot.GetExistingPlayerIDs());
+            var ids = DaySnapshot.GetExistingPlayerIDs();
+            if (!ids.Any())
+                return;
+            var task = Client.GetPlayerStatsAsync(ids);
             Action<Task<Dictionary<int, PlayerInfo>>> action = t => SetMatchingPlayers(t.Result.Select(p => new PlayerIDRecord { ID = p.Key, Nickname = p.Value.Nick }));
 
             task.ContinueWith(action, TaskContinuationOptions.ExecuteSynchronously);
