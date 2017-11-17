@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid IsEnabled="{Binding Path=IsInitialized}">
         <StackPanel>
-            <RadioButton Content="VbAddict" IsChecked="{Binding Path=VbAddictSelected}" />
+            <RadioButton Content="vBAddict" IsChecked="{Binding Path=VbAddictSelected}" />
             <RadioButton Content="XVM" IsChecked="{Binding Path=XvmSelected}" />
             <ComboBox ItemsSource="{Binding Path=Versions}"
                       SelectedItem="{Binding Path=SelectedVersion}" />
