@@ -71,7 +71,7 @@ namespace WotStatsTool.ViewModel
         {
             get
             {
-                if (_Tank != null || Tanks.TryGetValue(TankStatistics.TankID, out _Tank))
+                if (_Tank != null || (Tanks?.TryGetValue(TankStatistics.TankID, out _Tank) ?? false))
                     return _Tank;
                 return null;
             }

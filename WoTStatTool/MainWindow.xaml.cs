@@ -115,7 +115,7 @@ namespace WotStatsTool
             //set regular sort direction to descending instead of ascending
             dgOverview.Sorting += (o, e) => e.Column.SortDirection = e.Column.SortDirection ?? System.ComponentModel.ListSortDirection.Ascending;
 
-            Helpers.PreventAsyncDeadlockHack(Client.GetVehiclesAsync(), t => TankStatisticsViewModel.Tanks = t.Result);
+            Helpers.PreventAsyncDeadlockHack(Client.GetVehiclesAsync(), t => { TankStatisticsViewModel.Tanks = t.Result; UpdateDataGrid(); });
             
             //temp remove later
             PlayerSelect.PropertyChanged += (sender, e) =>

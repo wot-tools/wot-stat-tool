@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WotStatsTool"
         xmlns:view="clr-namespace:WotStatsTool.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="760">
+        Title="MainWindow" Height="900" Width="1200">
     <Grid Margin="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
