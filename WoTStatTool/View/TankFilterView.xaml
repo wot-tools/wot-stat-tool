@@ -5,29 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WotStatsTool.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="200" d:DesignWidth="500"
              d:DesignStyle="{StaticResource UserControlDesignerSpecificStyle}">
+    <UserControl.Resources>
+        <Style x:Key="StyleButtonNone" TargetType="Button">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style x:Key="StyleButtonAll" TargetType="Button">
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="3,0,0,0"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="4" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="4" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="4" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="4" />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -42,7 +50,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="3" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -66,8 +74,10 @@
         <CheckBox Grid.Row="8"  Grid.Column="2" Content="Tier_9" IsChecked="{Binding Path=Tier9}"/>
         <CheckBox Grid.Row="10" Grid.Column="2" Content="Tier1_0" IsChecked="{Binding Path=Tier10}"/>
 
-        <Button Grid.Row="12" Grid.Column="0" Content="None" Command="{Binding Path=SetTiersUnchecked}" />
-        <Button Grid.Row="12" Grid.Column="2" Content="All"  Command="{Binding Path=SetTiersChecked}" />
+        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+            <Button Content="None" Command="{Binding Path=SetTiersUnchecked}" Style="{StaticResource StyleButtonNone}"/>
+            <Button Content="All"  Command="{Binding Path=SetTiersChecked}" Style="{StaticResource StyleButtonAll}"/> 
+        </StackPanel>        
 
         <CheckBox Grid.Row="2"  Grid.Column="4" Content="USS_R"    IsChecked="{Binding Path=USSR}"/>
         <CheckBox Grid.Row="4"  Grid.Column="4" Content="_France"  IsChecked="{Binding Path=France}"/>
@@ -80,8 +90,10 @@
         <CheckBox Grid.Row="8"  Grid.Column="6" Content="_Sweden"  IsChecked="{Binding Path=Sweden}"/>
         <CheckBox Grid.Row="10"  Grid.Column="6" Content="_Poland"  IsChecked="{Binding Path=Poland}"/>
 
-        <Button Grid.Row="12" Grid.Column="4" Content="None" Command="{Binding Path=SetNationsUnchecked}" />
-        <Button Grid.Row="12" Grid.Column="6" Content="All"  Command="{Binding Path=SetNationsChecked}" />
+        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+            <Button Grid.Row="12" Grid.Column="4" Content="None" Command="{Binding Path=SetNationsUnchecked}" Style="{StaticResource StyleButtonNone}"/>
+            <Button Grid.Row="12" Grid.Column="6" Content="All"  Command="{Binding Path=SetNationsChecked}" Style="{StaticResource StyleButtonAll}"/>
+        </StackPanel>        
 
         <CheckBox Grid.Row="2"  Grid.Column="8" Content="_Heavy" IsChecked="{Binding Path=Heavy}" />
         <CheckBox Grid.Row="4"  Grid.Column="8" Content="_Medium" IsChecked="{Binding Path=Medium}" />
@@ -89,14 +101,15 @@
         <CheckBox Grid.Row="8"  Grid.Column="8" Content="_TD" IsChecked="{Binding Path=TD}" />
         <CheckBox Grid.Row="10" Grid.Column="8" Content="SPG" IsChecked="{Binding Path=SPG}" />
 
-        <Button Grid.Row="12" Grid.Column="8"  Content="None" Command="{Binding Path=SetVehicleTypesUnchecked}"/>
-        <Button Grid.Row="12" Grid.Column="10" Content="All"  Command="{Binding Path=SetVehicleTypesChecked}"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="8" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+            <Button Grid.Row="12" Grid.Column="8"  Content="None" Command="{Binding Path=SetVehicleTypesUnchecked}" Style="{StaticResource StyleButtonNone}"/>
+            <Button Grid.Row="12" Grid.Column="10" Content="All"  Command="{Binding Path=SetVehicleTypesChecked}" Style="{StaticResource StyleButtonAll}"/>
+        </StackPanel>
+        
+        <CheckBox Grid.Row="2" Grid.Column="12" Content="_Premium"    IsChecked="{Binding Path=Premium}"/>
+        <CheckBox Grid.Row="4" Grid.Column="12" Content="_Nonpremium" IsChecked="{Binding Path=NonPremium}"/>
 
-
-        <CheckBox Grid.Row="2" Grid.Column="12" Content="_Prem"    IsChecked="{Binding Path=Premium}"/>
-        <CheckBox Grid.Row="4" Grid.Column="12" Content="_NonPrem" IsChecked="{Binding Path=NonPremium}"/>
-
-        <TextBox Grid.Row="12" Grid.Column="12" Grid.ColumnSpan="5" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Grid.Row="12" Grid.Column="20" Grid.ColumnSpan="2" Content="Clear" Command="{Binding Path=ClearText}"/>
+        <TextBox Grid.Row="13" Grid.Column="12" Grid.ColumnSpan="5" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="13" Grid.Column="14" Grid.ColumnSpan="2" Content="Clear" Command="{Binding Path=ClearText}"/>
     </Grid>
 </UserControl>

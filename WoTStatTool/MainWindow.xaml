@@ -7,76 +7,97 @@
         xmlns:view="clr-namespace:WotStatsTool.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1200">
+    <Window.Resources>
+        <Style TargetType="{x:Type RadioButton}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Margin="6">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <GroupBox Header="Check player" Grid.Row="0" Margin="0,0,0,6">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="175"/>
-                    <ColumnDefinition Width="175"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                
-                <view:PlayerSelectView DataContext="{Binding Path=PlayerSelect}" Grid.ColumnSpan="3" Margin="0,0,0,3"/>
+        <GroupBox Header="Check player" Grid.Row="0" Margin="0,0,0,3">
+            <view:PlayerSelectView DataContext="{Binding Path=PlayerSelect}" Grid.ColumnSpan="3" Margin="3"/>
+        </GroupBox>
 
-                <GroupBox Header="Expected values" Grid.Column="0" Grid.Row="1">
-                    <view:ExpectedValuesSelectorView DataContext="{Binding Path=ExpectedValueSelector}" />
-                </GroupBox>
+        <Grid Grid.Row="1" Margin="0,3,0,3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="175"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="175"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                <GroupBox Grid.Column="1" Grid.Row="1">
-                    <GroupBox.Header>
-                        <CheckBox Content="compare expected values" IsChecked="{Binding CompareExpectedValues}"/>
-                    </GroupBox.Header>
 
-                    <view:ExpectedValuesSelectorView DataContext="{Binding ExpectedValueSelector2}"
+            <GroupBox Header="Expected values" Grid.Column="0" Grid.Row="1">
+                <view:ExpectedValuesSelectorView DataContext="{Binding Path=ExpectedValueSelector}" Margin="3"/>
+            </GroupBox>
+
+            <GroupBox Grid.Column="2" Grid.Row="1">
+                <GroupBox.Header>
+                    <CheckBox Content="compare expected values" IsChecked="{Binding CompareExpectedValues}"/>
+                </GroupBox.Header>
+
+                <view:ExpectedValuesSelectorView DataContext="{Binding ExpectedValueSelector2}" Margin="3"
                                                      IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=CompareExpectedValues}"/>
-                </GroupBox>                
-            </Grid>
-        </GroupBox>
+            </GroupBox>
 
-        <GroupBox Header="Snapshots" Grid.Row="1" Margin="0,0,0,6">
-            <view:DisplayRangeSelectorView DataContext="{Binding Path=DisplayRangeSelector}" />
-        </GroupBox>
+            <GroupBox Header="Snapshots" Grid.Row="1" Grid.Column="4">
+                <view:DisplayRangeSelectorView DataContext="{Binding Path=DisplayRangeSelector}" Margin="3"/>
+            </GroupBox>
+        </Grid>
 
-        <GroupBox Grid.Row="2" Margin="0,0,0,6">
-            <GroupBox.Header>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Stats for "/>
-                    <TextBlock x:Name="tbUsername" Text="Player X" FontWeight="Bold"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,0,0,6">
+            <GroupBox Width="240">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Stats for "/>
+                        <TextBlock x:Name="tbUsername" Text="Player X" FontWeight="Bold"/>
+                    </StackPanel>
+                </GroupBox.Header>
+
+                <view:StatTotalsView Grid.Column="0" DataContext="{Binding Path=StatTotals}" Margin="3"/>
+            </GroupBox>
+
+            <GroupBox Header="Filter" Margin="6,0,0,0">
+                <view:TankFilterView Grid.Column="2" DataContext="{Binding Path=TankFilter}" Margin="3"/>
+            </GroupBox>
+
+            <GroupBox Header="Display" Margin="6,0,0,0">
+                <StackPanel Grid.Row="3" Margin="3">
+                    <CheckBox Content="show expected values" IsChecked="{Binding Path=ShowExpectedValues}"/>
                 </StackPanel>
-            </GroupBox.Header>
-            <Grid Margin="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="3"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <view:StatTotalsView Grid.Column="0" DataContext="{Binding Path=StatTotals}" />
-                <view:TankFilterView Grid.Column="2" DataContext="{Binding Path=TankFilter}" />
-
-            </Grid>
-        </GroupBox>
-
-        <StackPanel Grid.Row="3">
-            <CheckBox Content="show expected values" IsChecked="{Binding Path=ShowExpectedValues}" />
+            </GroupBox>
         </StackPanel>
+
         <!-- dummy to be able to bind visibility on DataGridTextColumn -->
         <FrameworkElement x:Name="expectedVisibility" Visibility="{Binding Path=ExpectedValuesVisibility}" />
         <FrameworkElement x:Name="compareVisibility" Visibility="{Binding Path=CompareValuesVisibility}" />
+        
         <DataGrid x:Name="dgOverview" IsReadOnly="True" ItemsSource="{Binding Collection}" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
-                AutoGenerateColumns="False" AlternatingRowBackground="LightGray" HeadersVisibility="Column" Grid.Row="4">
+                AutoGenerateColumns="False" AlternatingRowBackground="LightGray" HeadersVisibility="Column" Grid.Row="3" Margin="0,3,0,0"
+                  HorizontalGridLinesBrush="SlateGray" VerticalGridLinesBrush="SlateGray">
             <DataGrid.Resources>
                 <Style TargetType="TextBlock" x:Key="AlignRight">
                     <Setter Property="HorizontalAlignment" Value="Right"/>
