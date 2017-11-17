@@ -63,8 +63,6 @@ namespace WotStatsTool
         //DaySnapshot.CreateNewSnapshot(Client);
         //UpdateDates();
 
-        public NotifyTaskCompletion ValueListLoading { get; set; }
-
         private bool _ShowExpectedValues = false;
         public bool ShowExpectedValues
         {
