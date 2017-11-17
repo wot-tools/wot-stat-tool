@@ -108,7 +108,8 @@
                 <DataGridTextColumn Header="Avg XP" Binding="{Binding AvgExperience, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Winrate" Binding="{Binding Winrate, StringFormat=P2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="WN8" Binding="{Binding WN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WN8ColorScaling}"/>
-                <DataGridTextColumn Header="CoWN8" Binding="{Binding ComparisonWN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WN8ColorScaling}"/>
+                <DataGridTextColumn Header="CoWN8" Binding="{Binding ComparisonWN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WN8ColorScaling}"
+                                    Visibility="{Binding Visibility, Source={x:Reference compareVisibility}}"/>
                 <DataGridTextColumn Header="Expected Frag" Binding="{Binding ExFrags, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"
                                     Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
                 <DataGridTemplateColumn Header="Frags" Width="60">
