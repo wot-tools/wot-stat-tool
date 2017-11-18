@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WotStatsTool.View"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="500"
+             d:DesignHeight="200" d:DesignWidth="750"
              d:DesignStyle="{StaticResource UserControlDesignerSpecificStyle}">
     <UserControl.Resources>
         <Style x:Key="StyleButtonNone" TargetType="Button">
@@ -29,12 +29,11 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="10" />
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="4" />
-            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="10" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="10" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="75" />
             <ColumnDefinition Width="4" />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
@@ -91,8 +90,8 @@
         <CheckBox Grid.Row="10"  Grid.Column="6" Content="_Poland"  IsChecked="{Binding Path=Poland}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-            <Button Grid.Row="12" Grid.Column="4" Content="None" Command="{Binding Path=SetNationsUnchecked}" Style="{StaticResource StyleButtonNone}"/>
-            <Button Grid.Row="12" Grid.Column="6" Content="All"  Command="{Binding Path=SetNationsChecked}" Style="{StaticResource StyleButtonAll}"/>
+            <Button Content="None" Command="{Binding Path=SetNationsUnchecked}" Style="{StaticResource StyleButtonNone}"/>
+            <Button Content="All"  Command="{Binding Path=SetNationsChecked}" Style="{StaticResource StyleButtonAll}"/>
         </StackPanel>        
 
         <CheckBox Grid.Row="2"  Grid.Column="8" Content="_Heavy" IsChecked="{Binding Path=Heavy}" />
@@ -101,15 +100,27 @@
         <CheckBox Grid.Row="8"  Grid.Column="8" Content="_TD" IsChecked="{Binding Path=TD}" />
         <CheckBox Grid.Row="10" Grid.Column="8" Content="SPG" IsChecked="{Binding Path=SPG}" />
 
-        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="8" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="8" HorizontalAlignment="Center">
+            <Button Content="None" Command="{Binding Path=SetVehicleTypesUnchecked}" Style="{StaticResource StyleButtonNone}"/>
+            <Button Content="All"  Command="{Binding Path=SetVehicleTypesChecked}" Style="{StaticResource StyleButtonAll}"/>
+        </StackPanel>
+
+        <CheckBox Grid.Row="2"  Grid.Column="10" Content="3 MoE" IsChecked="{Binding Path=MoE3}" />
+        <CheckBox Grid.Row="4"  Grid.Column="10" Content="2 MoE" IsChecked="{Binding Path=MoE2}" />
+        <CheckBox Grid.Row="6"  Grid.Column="10" Content="1 MoE" IsChecked="{Binding Path=MoE1}" />
+        <CheckBox Grid.Row="8"  Grid.Column="10" Content="0 MoE" IsChecked="{Binding Path=MoE0}" />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="10" HorizontalAlignment="Center">
             <Button Grid.Row="12" Grid.Column="8"  Content="None" Command="{Binding Path=SetVehicleTypesUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Grid.Row="12" Grid.Column="10" Content="All"  Command="{Binding Path=SetVehicleTypesChecked}" Style="{StaticResource StyleButtonAll}"/>
         </StackPanel>
-        
+
         <CheckBox Grid.Row="2" Grid.Column="12" Content="_Premium"    IsChecked="{Binding Path=Premium}"/>
         <CheckBox Grid.Row="4" Grid.Column="12" Content="_Nonpremium" IsChecked="{Binding Path=NonPremium}"/>
 
-        <TextBox Grid.Row="13" Grid.Column="12" Grid.ColumnSpan="5" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Grid.Row="13" Grid.Column="14" Grid.ColumnSpan="2" Content="Clear" Command="{Binding Path=ClearText}"/>
+        <CheckBox Grid.Row="8" Grid.Column="12" Content="0 _Battles" IsChecked="{Binding Path=ZeroBattles}"/>
+
+        <TextBox Grid.Row="13" Grid.Column="12" Grid.ColumnSpan="2" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="13" Grid.Column="15" Content="Clear" Command="{Binding Path=ClearText}"/>
     </Grid>
 </UserControl>
