@@ -111,6 +111,7 @@
                 </Style>
                 <Style TargetType="DataGridCell" x:Key="WN8ColorScaling">
                     <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:Wn8ColorConverter.Instance}}"/>
+                    <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:Wn8ForegroundColorConverter.Instance}}"/>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
