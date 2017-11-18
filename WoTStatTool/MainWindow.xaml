@@ -118,14 +118,14 @@
                 <DataGridTextColumn Header="Vehicle" Binding="{Binding Name}" Width="200" CellStyle="{StaticResource HighlightPremium}"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="60"/>
                 <DataGridTextColumn Header="Nation" Binding="{Binding Nation}" Width="120"/>
-                <DataGridTextColumn Header="Tier" Binding="{Binding Tier, StringFormat=N0}" Width="30" ElementStyle="{StaticResource AlignRight}"/>
-                <DataGridTextColumn Header="MoE" Binding="{Binding MarksOnGun, StringFormat=N0}" Width="30" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Tier" Binding="{Binding Tier, StringFormat=N0}" Width="40" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="MoE" Binding="{Binding MarksOnGun, StringFormat=N0}" Width="40" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Battles" Binding="{Binding Battles, StringFormat=N0}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="DPG" Binding="{Binding AvgDamage, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Avg Spot" Binding="{Binding AvgSpotted, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="KPG" Binding="{Binding AvgFrags, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Avg Cap" Binding="{Binding AvgCap, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
-                <DataGridTextColumn Header="Avg Decap" Binding="{Binding AvgDecap, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Avg Decap" Binding="{Binding AvgDecap, StringFormat=N2}" Width="70" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Hitrate" Binding="{Binding Hitrate, StringFormat=P}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Avg XP" Binding="{Binding AvgExperience, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Winrate" Binding="{Binding Winrate, StringFormat=P2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
