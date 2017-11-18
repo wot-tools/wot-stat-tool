@@ -115,6 +115,10 @@
                     <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:Wn8ColorConverter.Instance}}"/>
                     <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:Wn8ForegroundColorConverter.Instance}}"/>
                 </Style>
+                <Style TargetType="DataGridCell" x:Key="WinrateScaling">
+                    <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:WinrateColorConverter.Instance}}"/>
+                    <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:WinrateForegroundColorConverter.Instance}}"/>
+                </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vehicle" Binding="{Binding Name}" Width="200" CellStyle="{StaticResource HighlightPremium}"/>
@@ -130,7 +134,7 @@
                 <DataGridTextColumn Header="Avg Decap" Binding="{Binding AvgDecap, StringFormat=N2}" Width="70" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Hitrate" Binding="{Binding Hitrate, StringFormat=P}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Avg XP" Binding="{Binding AvgExperience, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
-                <DataGridTextColumn Header="Winrate" Binding="{Binding Winrate, StringFormat=P2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
+                <DataGridTextColumn Header="Winrate" Binding="{Binding Winrate, StringFormat=P2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WinrateScaling}"/>
                 <DataGridTextColumn Header="WN8" Binding="{Binding WN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WN8ColorScaling}"/>
                 <DataGridTextColumn Header="CoWN8" Binding="{Binding ComparisonWN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WN8ColorScaling}"
                                     Visibility="{Binding Visibility, Source={x:Reference compareVisibility}}"/>
