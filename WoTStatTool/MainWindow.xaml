@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WotStatsTool"
         xmlns:view="clr-namespace:WotStatsTool.View"
+        xmlns:converters="clr-namespace:WotStatsTool.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1200">
     <Window.Resources>
@@ -112,12 +113,12 @@
                     </Style.Triggers>
                 </Style>
                 <Style TargetType="DataGridCell" x:Key="WN8ColorScaling">
-                    <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:Wn8ColorConverter.Instance}}"/>
-                    <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:Wn8ForegroundColorConverter.Instance}}"/>
+                    <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static converters:Wn8ColorConverter.Instance}}"/>
+                    <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
                 </Style>
                 <Style TargetType="DataGridCell" x:Key="WinrateScaling">
-                    <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:WinrateColorConverter.Instance}}"/>
-                    <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static local:WinrateForegroundColorConverter.Instance}}"/>
+                    <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static converters:WinrateColorConverter.Instance}}"/>
+                    <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static converters:WinrateForegroundColorConverter.Instance}}"/>
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
