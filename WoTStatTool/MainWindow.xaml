@@ -86,7 +86,9 @@
 
             <GroupBox Header="Display" Margin="6,0,0,0">
                 <StackPanel Grid.Row="3" Margin="3">
-                    <CheckBox Content="show expected values" IsChecked="{Binding Path=ShowExpectedValues}"/>
+                    <CheckBox Content="Show expected values" IsChecked="{Binding Path=ShowExpectedValues}"/>
+                    <CheckBox Content="Show second expected values" IsChecked="{Binding Path=ShowCompareExpectedValues}"/>
+                    <CheckBox Content="Show change in the expected values" IsChecked="{Binding Path=ShowExpectedValuesChange}"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
