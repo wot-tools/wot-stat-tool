@@ -111,8 +111,8 @@
         <CheckBox Grid.Row="8"  Grid.Column="10" Content="0 MoE" IsChecked="{Binding Path=MoE0}" />
 
         <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="10" HorizontalAlignment="Center">
-            <Button Grid.Row="12" Grid.Column="8"  Content="None" Command="{Binding Path=SetVehicleTypesUnchecked}" Style="{StaticResource StyleButtonNone}"/>
-            <Button Grid.Row="12" Grid.Column="10" Content="All"  Command="{Binding Path=SetVehicleTypesChecked}" Style="{StaticResource StyleButtonAll}"/>
+            <Button Grid.Row="12" Grid.Column="8"  Content="None" Command="{Binding Path=SetMoEUnchecked}" Style="{StaticResource StyleButtonNone}"/>
+            <Button Grid.Row="12" Grid.Column="10" Content="All"  Command="{Binding Path=SetMoEChecked}" Style="{StaticResource StyleButtonAll}"/>
         </StackPanel>
 
         <CheckBox Grid.Row="2" Grid.Column="12" Content="_Premium"    IsChecked="{Binding Path=Premium}"/>

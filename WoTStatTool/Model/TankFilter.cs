@@ -13,6 +13,7 @@ namespace WotStatsTool.Model
         public Nations Nations { get; set; } = Nations.All;
         public Premiums Premiums { get; set; } = Premiums.All;
         public VehicleTypes VehicleTypes { get; set; } = VehicleTypes.All;
+        public MarksOfExcellence MarksOfExcellence { get; set; } = MarksOfExcellence.All;
         public string Text { get; set; }
     }
 

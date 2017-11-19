@@ -290,6 +290,52 @@ namespace WotStatsTool.ViewModel
         }
         #endregion
 
+        #region Marks of Excellence
+        public bool MoE0
+        {
+            get => MarksOfExcellence.HasFlag(MarksOfExcellence.Zero);
+            set
+            {
+                if (MoE0 == value) return;
+                MarksOfExcellence ^= MarksOfExcellence.Zero;
+                OnPropertyChanged(nameof(MoE0));
+            }
+        }
+
+        public bool MoE1
+        {
+            get => MarksOfExcellence.HasFlag(MarksOfExcellence.One);
+            set
+            {
+                if (MoE1 == value) return;
+                MarksOfExcellence ^= MarksOfExcellence.One;
+                OnPropertyChanged(nameof(MoE1));
+            }
+        }
+
+        public bool MoE2
+        {
+            get => MarksOfExcellence.HasFlag(MarksOfExcellence.Two);
+            set
+            {
+                if (MoE2 == value) return;
+                MarksOfExcellence ^= MarksOfExcellence.Two;
+                OnPropertyChanged(nameof(MoE2));
+            }
+        }
+
+        public bool MoE3
+        {
+            get => MarksOfExcellence.HasFlag(MarksOfExcellence.Three);
+            set
+            {
+                if (MoE3 == value) return;
+                MarksOfExcellence ^= MarksOfExcellence.Three;
+                OnPropertyChanged(nameof(MoE3));
+            }
+        }
+        #endregion Marks
+
         public bool NonPremium
         {
             get => Premiums.HasFlag(Premiums.NonPremium);
@@ -379,6 +425,28 @@ namespace WotStatsTool.ViewModel
             }
         }
 
+        private RelayCommand _SetMoEChecked;
+        public RelayCommand SetMoEChecked
+        {
+            get
+            {
+                if (_SetMoEChecked == null)
+                    _SetMoEChecked = new RelayCommand(o => MarksOfExcellence = MarksOfExcellence.All, o => MarksOfExcellence != MarksOfExcellence.All);
+                return _SetMoEChecked;
+            }
+        }
+
+        private RelayCommand _SetMoEUnchecked;
+        public RelayCommand SetMoEUnchecked
+        {
+            get
+            {
+                if (_SetMoEUnchecked == null)
+                    _SetMoEUnchecked = new RelayCommand(o => MarksOfExcellence = MarksOfExcellence.None, o => MarksOfExcellence != MarksOfExcellence.None);
+                return _SetMoEUnchecked;
+            }
+        }
+
         private RelayCommand _ClearText;
         public RelayCommand ClearText
         {
@@ -420,6 +488,18 @@ namespace WotStatsTool.ViewModel
             {
                 if (TankFilter.Tiers == value) return;
                 TankFilter.Tiers = value;
+                //String.Empty is interpreted by WPF as a change in all properties
+                OnPropertyChanged(String.Empty);
+            }
+        }
+
+        private MarksOfExcellence MarksOfExcellence
+        {
+            get => TankFilter.MarksOfExcellence;
+            set
+            {
+                if (TankFilter.MarksOfExcellence == value) return;
+                TankFilter.MarksOfExcellence = value;
                 //String.Empty is interpreted by WPF as a change in all properties
                 OnPropertyChanged(String.Empty);
             }

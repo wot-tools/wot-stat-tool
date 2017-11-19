@@ -82,6 +82,7 @@ namespace WotStatsTool.ViewModel
         public bool IsPremium => Tank?.IsPremium ?? false;
         public string Type => Tank?.VehicleType.ToString();
         public int Tier => Tank?.Tier ?? -1;
+        public int MarksOfExcellence => TankStatistics?.MarksOnGun ?? 0;
 
         public bool MeetsFilterCriteria(TankFilter filter)
         {
@@ -97,6 +98,8 @@ namespace WotStatsTool.ViewModel
             if (!filter.VehicleTypes.HasFlag(Tank.VehicleType))
                 return false;
 
+            if (!filter.MarksOfExcellence.HasFlag((MarksOfExcellence)(Math.Pow(2, MarksOfExcellence))))
+                return false;
             //flag nonpremium    tank premium
             //    0                   0           1
             //    0                   1           0
