@@ -45,7 +45,7 @@ namespace WotStatsTool.ViewModel
                 OnPropertyChanged(nameof(StartDate));
                 if (IsDiffMode)
                 {
-                    SetDates(EndDates, DaySnapshot?.AvailableDates?.Where(t => t > _StartDate));
+                    SetEndDates();
                     if (EndDates.Count == 1)
                         EndDate = EndDates.Single();
                 }
@@ -155,6 +155,11 @@ namespace WotStatsTool.ViewModel
             SetDates(StartDates, DaySnapshot?.AvailableDates);
         }
 
+        private void SetEndDates()
+        {
+            SetDates(EndDates, DaySnapshot?.AvailableDates?.Where(t => t > _StartDate));
+        }
+
         private void SetDates(ObservableCollection<DateTime> collection, IEnumerable<DateTime> dates)
         {
             if (dates == null)
@@ -204,6 +209,7 @@ namespace WotStatsTool.ViewModel
         private void LoadNewestDifference()
         {
             IsDiffMode = true;
+            SetEndDates();
             StartDate = StartDates[StartDates.Count - 2];
             EndDate = EndDates.Last();
         }
