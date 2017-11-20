@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WotStatsTool.View"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="450"
+             d:DesignHeight="150" d:DesignWidth="500"
              d:DesignStyle="{StaticResource UserControlDesignerSpecificStyle}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -13,7 +13,7 @@
             <ColumnDefinition Width="6"/>
             <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="6"/>
-            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="6"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
         <Button Content="Show newest snapshot difference" Command="{Binding Path=NewestDifference}"
                 Grid.Row="2" Grid.Column="4"/>
 
-        <CheckBox Content="Diff Mode" IsChecked="{Binding Path=IsDiffMode}"
-                  Grid.Row="0" Grid.Column="6"/>
+        <CheckBox Content="Compare snapshots" IsChecked="{Binding Path=IsDiffMode}"
+                  Grid.Row="2" Grid.Column="6" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>
