@@ -16,6 +16,23 @@ namespace WotStatsTool.ViewModel
         public ObservableCollection<DateTime> StartDates { get; } = new ObservableCollection<DateTime>();
         public ObservableCollection<DateTime> EndDates { get; } = new ObservableCollection<DateTime>();
 
+        private bool _IsDiffMode = false;
+        public bool IsDiffMode
+        {
+            get => _IsDiffMode;
+            set
+            {
+                if (_IsDiffMode == value) return;
+                _IsDiffMode = value;
+                OnPropertyChanged(nameof(IsDiffMode));
+                if (!IsDiffMode)
+                {
+                    EndDate = DateTime.MinValue;
+                    EndDates.Clear();
+                }
+            }
+        }
+
         private DateTime _StartDate;
         public DateTime StartDate
         {
@@ -26,9 +43,12 @@ namespace WotStatsTool.ViewModel
                 _StartDate = value;
                 if (_StartDate > EndDate) EndDate = DateTime.MinValue;
                 OnPropertyChanged(nameof(StartDate));
-                SetDates(EndDates, DaySnapshot?.AvailableDates?.Where(t => t >= _StartDate));
-                if (EndDates.Count == 1)
-                    EndDate = EndDates.Single();
+                if (IsDiffMode)
+                {
+                    SetDates(EndDates, DaySnapshot?.AvailableDates?.Where(t => t > _StartDate));
+                    if (EndDates.Count == 1)
+                        EndDate = EndDates.Single();
+                }
                 TryCreateNewData();
             }
         }
@@ -103,12 +123,12 @@ namespace WotStatsTool.ViewModel
 
         private void TryCreateNewData()
         {
-            if (StartDate == DateTime.MinValue || EndDate == DateTime.MinValue)
+            if (StartDate == DateTime.MinValue || IsDiffMode && EndDate == DateTime.MinValue)
             {
                 Data = null;
                 return;
             }
-            Data = StartDate == EndDate
+            Data = !IsDiffMode
                 ? DaySnapshot[StartDate]
                 : DaySnapshot.CreateIntermediateSnapshot(StartDate, EndDate);
         }
@@ -131,14 +151,17 @@ namespace WotStatsTool.ViewModel
         private void InitDates()
         {
             EndDates.Clear();
-            if (DaySnapshot == null) return;
+            //if (DaySnapshot == null) return;
             SetDates(StartDates, DaySnapshot?.AvailableDates);
         }
 
         private void SetDates(ObservableCollection<DateTime> collection, IEnumerable<DateTime> dates)
         {
             if (dates == null)
+            {
                 collection.Clear();
+                return;
+            }
 
             //non-destructive approach to keep as many items as possible to not break e.g. selected items and such
             //collectioncopy keeps track of all items that were in the collection and not in the new dates
@@ -174,11 +197,13 @@ namespace WotStatsTool.ViewModel
 
         private void LoadNewestSnapshot()
         {
+            IsDiffMode = false;
             StartDate = StartDates.Last();
         }
 
         private void LoadNewestDifference()
         {
+            IsDiffMode = true;
             StartDate = StartDates[StartDates.Count - 2];
             EndDate = EndDates.Last();
         }

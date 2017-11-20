@@ -13,6 +13,8 @@
             <ColumnDefinition Width="6"/>
             <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="6"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -23,19 +25,23 @@
 
         <TextBlock Text="From" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
         <ComboBox Grid.Column="2" Grid.Row="0"
-                    ItemsSource="{Binding Path=StartDates}"
-                    SelectedItem="{Binding Path=StartDate}"
-                    ItemStringFormat="dd.MM.yyyy HH:mm"/>
+                  ItemsSource="{Binding Path=StartDates}"
+                  SelectedItem="{Binding Path=StartDate}"
+                  ItemStringFormat="dd.MM.yyyy HH:mm"/>
 
         <TextBlock Text="To" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"/>
         <ComboBox Grid.Column="2" Grid.Row="2"
-                    ItemsSource="{Binding Path=EndDates}"
-                    SelectedItem="{Binding Path=EndDate}"
-                    ItemStringFormat="dd.MM.yyyy HH:mm"/>
+                  ItemsSource="{Binding Path=EndDates}"
+                  SelectedItem="{Binding Path=EndDate}"
+                  IsEnabled="{Binding Path=IsDiffMode}"
+                  ItemStringFormat="dd.MM.yyyy HH:mm"/>
 
         <Button Content="Show newest snapshot" Command="{Binding Path=NewestSnapshot}"
-            Grid.Row="0" Grid.Column="4"/>
+                Grid.Row="0" Grid.Column="4"/>
         <Button Content="Show newest snapshot difference" Command="{Binding Path=NewestDifference}"
-            Grid.Row="12" Grid.Column="4"/>
+                Grid.Row="2" Grid.Column="4"/>
+
+        <CheckBox Content="Diff Mode" IsChecked="{Binding Path=IsDiffMode}"
+                  Grid.Row="0" Grid.Column="6"/>
     </Grid>
 </UserControl>
