@@ -112,14 +112,6 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-                <Style TargetType="DataGridCell" x:Key="WN8ColorScaling">
-                    <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static converters:Wn8ColorConverter.Instance}}"/>
-                    <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
-                </Style>
-                <Style TargetType="DataGridCell" x:Key="WinrateScaling">
-                    <Setter Property="Background" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static converters:WinrateColorConverter.Instance}}"/>
-                    <Setter Property="Foreground" Value="{Binding Content.Text, RelativeSource={RelativeSource Self}, Converter={x:Static converters:WinrateForegroundColorConverter.Instance}}"/>
-                </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vehicle" Binding="{Binding Name}" Width="200" CellStyle="{StaticResource HighlightPremium}"/>
@@ -135,10 +127,37 @@
                 <DataGridTextColumn Header="Avg Decap" Binding="{Binding AvgDecap, StringFormat=N2}" Width="70" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Hitrate" Binding="{Binding Hitrate, StringFormat=P}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Avg XP" Binding="{Binding AvgExperience, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
-                <DataGridTextColumn Header="Winrate" Binding="{Binding Winrate, StringFormat=P2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WinrateScaling}"/>
-                <DataGridTextColumn Header="WN8" Binding="{Binding WN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WN8ColorScaling}"/>
-                <DataGridTextColumn Header="CoWN8" Binding="{Binding ComparisonWN8, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}" CellStyle="{StaticResource WN8ColorScaling}"
-                                    Visibility="{Binding Visibility, Source={x:Reference compareVisibility}}"/>
+                <DataGridTemplateColumn Header="Winrate" SortMemberPath="ComparisonWN8" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid Background="{Binding Winrate, Converter={x:Static converters:WinrateColorConverter.Instance}}">
+                                <TextBlock Text="{Binding Winrate, StringFormat=P2}" HorizontalAlignment="Right" Margin="3,0,3,0"
+                                           Foreground="{Binding Winrate, Converter={x:Static converters:WinrateForegroundColorConverter.Instance}}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="WN8" SortMemberPath="WN8" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid Background="{Binding WN8, Converter={x:Static converters:Wn8ColorConverter.Instance}}">
+                                <TextBlock Text="{Binding WN8, StringFormat=N2}" HorizontalAlignment="Right" Margin="3,0,3,0"
+                                           Foreground="{Binding WN8, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
+                            </Grid>                            
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="CoWN8" SortMemberPath="ComparisonWN8" Width="60"
+                                        Visibility="{Binding Visibility, Source={x:Reference compareVisibility}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid Background="{Binding ComparisonWN8, Converter={x:Static converters:Wn8ColorConverter.Instance}}">
+                                <TextBlock Text="{Binding ComparisonWN8, StringFormat=N2}" HorizontalAlignment="Right" Margin="3,0,3,0"
+                                           Foreground="{Binding ComparisonWN8, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Expected Frag" Binding="{Binding ExFrags, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"
                                     Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
                 <DataGridTemplateColumn Header="Frags" Width="60">
