@@ -29,13 +29,13 @@ namespace WotStatsTool.ViewModel
         public double ExDamage          => ExpectedValues?.Damage ?? double.NaN;
         public double ExSpots           => ExpectedValues?.Spots ?? double.NaN;
         public double ExDefense         => ExpectedValues?.Defense ?? double.NaN;
-        public double ExWinrate         => ExpectedValues?.Winrate ?? double.NaN;
+        public double ExWinrate         => ExpectedValues?.Winrate / 100 ?? double.NaN;
 
         public double CoFrags           => ComparisonExpectedValues?.Frags ?? double.NaN;
         public double CoDamage          => ComparisonExpectedValues?.Damage ?? double.NaN;
         public double CoSpots           => ComparisonExpectedValues?.Spots ?? double.NaN;
         public double CoDefense         => ComparisonExpectedValues?.Defense ?? double.NaN;
-        public double CoWinrate         => ComparisonExpectedValues?.Winrate ?? double.NaN;
+        public double CoWinrate         => ComparisonExpectedValues?.Winrate / 100 ?? double.NaN;
 
         public double DeltaFrags        => ExFrags - CoFrags;
         public double DeltaDamage       => ExDamage - CoDamage;
