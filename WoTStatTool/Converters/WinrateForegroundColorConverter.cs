@@ -15,17 +15,7 @@ namespace WotStatsTool.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double val;
-            if (String.IsNullOrWhiteSpace(value as string))
-                val = 0;
-            else if (value as string == "NaN")
-                val = double.NaN;
-            else
-            {
-                var winrateString = value as string;
-                val = double.Parse(winrateString.Substring(0, winrateString.Length - 2), culture.NumberFormat) / 100;
-            }
-
+            double val = (double)value;
 
             switch (val)
             {

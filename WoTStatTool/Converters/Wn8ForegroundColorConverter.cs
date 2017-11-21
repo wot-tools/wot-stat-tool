@@ -15,12 +15,7 @@ namespace WotStatsTool.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double val;
-            if (String.IsNullOrWhiteSpace(value as string))
-                val = 0;
-            else
-                val = double.Parse(value as string, culture.NumberFormat);
-
+            double val = (double)value;
 
             switch (val)
             {
