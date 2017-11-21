@@ -32,6 +32,7 @@ namespace WotStatsTool.ViewModel
             //ignore unselecting of the previous selected radio button
             if (value)
             {
+                if (RadioState_ == state) return;
                 RadioState_ = state;
                 OnPropertyChanged(propertyName);
                 OnPropertyChanged(nameof(CurrentlySelectedList));
