@@ -127,7 +127,7 @@
                 <DataGridTextColumn Header="Avg Decap" Binding="{Binding AvgDecap, StringFormat=N2}" Width="70" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Hitrate" Binding="{Binding Hitrate, StringFormat=P}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
                 <DataGridTextColumn Header="Avg XP" Binding="{Binding AvgExperience, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"/>
-                <DataGridTemplateColumn Header="Winrate" SortMemberPath="ComparisonWN8" Width="60">
+                <DataGridTemplateColumn Header="Winrate" SortMemberPath="Winrate" Width="60">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid Background="{Binding Winrate, Converter={x:Static converters:WinrateColorConverter.Instance}}">
