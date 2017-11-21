@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ApiKey.cs" />
+    <Compile Include="Converters\ForegroundColorConverter.cs" />
     <Compile Include="Converters\IsLessThanConverter.cs" />
     <Compile Include="Converters\WinrateColorConverter.cs" />
     <Compile Include="Converters\WinrateForegroundColorConverter.cs" />
