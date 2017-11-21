@@ -132,7 +132,8 @@
                         <DataTemplate>
                             <Grid Background="{Binding Winrate, Converter={x:Static converters:WinrateColorConverter.Instance}}">
                                 <TextBlock Text="{Binding Winrate, StringFormat=P2}" HorizontalAlignment="Right" Margin="3,0,3,0"
-                                           Foreground="{Binding Winrate, Converter={x:Static converters:WinrateForegroundColorConverter.Instance}}"/>
+                                           Foreground="{Binding Background, RelativeSource={RelativeSource AncestorType=Grid},
+                                                                            Converter={x:Static converters:ForegroundColorConverter.Instance}}"/>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -142,7 +143,8 @@
                         <DataTemplate>
                             <Grid Background="{Binding WN8, Converter={x:Static converters:Wn8ColorConverter.Instance}}">
                                 <TextBlock Text="{Binding WN8, StringFormat=N0}" HorizontalAlignment="Right" Margin="3,0,3,0"
-                                           Foreground="{Binding WN8, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
+                                           Foreground="{Binding Background, RelativeSource={RelativeSource AncestorType=Grid},
+                                                                            Converter={x:Static converters:ForegroundColorConverter.Instance}}"/>
                             </Grid>                            
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -153,7 +155,8 @@
                         <DataTemplate>
                             <Grid Background="{Binding ComparisonWN8, Converter={x:Static converters:Wn8ColorConverter.Instance}}">
                                 <TextBlock Text="{Binding ComparisonWN8, StringFormat=N0}" HorizontalAlignment="Right" Margin="3,0,3,0"
-                                           Foreground="{Binding ComparisonWN8, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
+                                           Foreground="{Binding Background, RelativeSource={RelativeSource AncestorType=Grid},
+                                                                            Converter={x:Static converters:ForegroundColorConverter.Instance}}"/>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
