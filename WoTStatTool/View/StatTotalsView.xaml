@@ -53,7 +53,7 @@
         <TextBlock Grid.Column="0" Grid.Row="0"
                    Text="WN8 / Winrate" />
         <TextBlock Grid.Column="2" Grid.Row="0"
-                   Text="{Binding Path=WN8, StringFormat={}{0:N2}}" />
+                   Text="{Binding Path=WN8, StringFormat={}{0:N0}}" />
         <TextBlock Grid.Column="4" Grid.Row="0"
                    Text="{Binding Path=Winrate, StringFormat={}{0:P2}}" />
         

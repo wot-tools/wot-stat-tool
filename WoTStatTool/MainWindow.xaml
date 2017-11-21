@@ -141,7 +141,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid Background="{Binding WN8, Converter={x:Static converters:Wn8ColorConverter.Instance}}">
-                                <TextBlock Text="{Binding WN8, StringFormat=N2}" HorizontalAlignment="Right" Margin="3,0,3,0"
+                                <TextBlock Text="{Binding WN8, StringFormat=N0}" HorizontalAlignment="Right" Margin="3,0,3,0"
                                            Foreground="{Binding WN8, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
                             </Grid>                            
                         </DataTemplate>
@@ -152,7 +152,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid Background="{Binding ComparisonWN8, Converter={x:Static converters:Wn8ColorConverter.Instance}}">
-                                <TextBlock Text="{Binding ComparisonWN8, StringFormat=N2}" HorizontalAlignment="Right" Margin="3,0,3,0"
+                                <TextBlock Text="{Binding ComparisonWN8, StringFormat=N0}" HorizontalAlignment="Right" Margin="3,0,3,0"
                                            Foreground="{Binding ComparisonWN8, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
                             </Grid>
                         </DataTemplate>
