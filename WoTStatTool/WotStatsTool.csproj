@@ -64,6 +64,7 @@
     <Compile Include="Converters\IsLessThanConverter.cs" />
     <Compile Include="Converters\WinrateColorConverter.cs" />
     <Compile Include="Converters\WinrateForegroundColorConverter.cs" />
+    <Compile Include="Converters\DeltaForegroundConverter.cs" />
     <Compile Include="Converters\Wn8ColorConverter.cs" />
     <Compile Include="Converters\Wn8ForegroundColorConverter.cs" />
     <Compile Include="Helpers.cs" />
