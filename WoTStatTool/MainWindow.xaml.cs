@@ -78,6 +78,36 @@ namespace WotStatsTool
 
         public Visibility ExpectedValuesVisibility => ShowExpectedValues ? Visibility.Visible : Visibility.Collapsed;
 
+        private bool _ShowCompareExpectedValues = false;
+        public bool ShowCompareExpectedValues
+        {
+            get => _ShowCompareExpectedValues;
+            set
+            {
+                if (_ShowCompareExpectedValues == value) return;
+                _ShowCompareExpectedValues = value;
+                OnPropertyChanged(nameof(ShowCompareExpectedValues));
+                OnPropertyChanged(nameof(CompareExpectedValuesVisibility));
+            }
+        }
+
+        public Visibility CompareExpectedValuesVisibility => ShowCompareExpectedValues ? Visibility.Visible : Visibility.Collapsed;
+
+        private bool _ShowDeltaExpectedValues = false;
+        public bool ShowDeltaExpectedValues
+        {
+            get => _ShowDeltaExpectedValues;
+            set
+            {
+                if (_ShowDeltaExpectedValues == value) return;
+                _ShowDeltaExpectedValues = value;
+                OnPropertyChanged(nameof(ShowDeltaExpectedValues));
+                OnPropertyChanged(nameof(DeltaExpectedValuesVisibility));
+            }
+        }
+
+        public Visibility DeltaExpectedValuesVisibility => ShowDeltaExpectedValues ? Visibility.Visible : Visibility.Collapsed;
+
         private bool _CompareExpectedValues = false;
         public bool CompareExpectedValues
         {

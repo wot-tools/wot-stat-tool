@@ -89,7 +89,7 @@
                 <StackPanel Grid.Row="3" Margin="3">
                     <CheckBox Content="Show expected values" IsChecked="{Binding Path=ShowExpectedValues}"/>
                     <CheckBox Content="Show second expected values" IsChecked="{Binding Path=ShowCompareExpectedValues}"/>
-                    <CheckBox Content="Show change in the expected values" IsChecked="{Binding Path=ShowExpectedValuesChange}"/>
+                    <CheckBox Content="Show change in the expected values" IsChecked="{Binding Path=ShowDeltaExpectedValues}"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
@@ -97,6 +97,8 @@
         <!-- dummy to be able to bind visibility on DataGridTextColumn -->
         <FrameworkElement x:Name="expectedVisibility" Visibility="{Binding Path=ExpectedValuesVisibility}" />
         <FrameworkElement x:Name="compareVisibility" Visibility="{Binding Path=CompareValuesVisibility}" />
+        <FrameworkElement x:Name="compareExpectedVisibility" Visibility="{Binding Path=CompareExpectedValuesVisibility}" />
+        <FrameworkElement x:Name="deltaExpectedVisibility" Visibility="{Binding Path=DeltaExpectedValuesVisibility}" />
         
         <DataGrid x:Name="dgOverview" IsReadOnly="True" ItemsSource="{Binding Collection}" DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                 AutoGenerateColumns="False" AlternatingRowBackground="LightGray" HeadersVisibility="Column" Grid.Row="3" Margin="0,3,0,0"
@@ -161,9 +163,72 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Expected Frag" Binding="{Binding ExFrags, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"
+                <DataGridTextColumn Header="Exp Frag" Binding="{Binding ExFrags, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"
                                     Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
-                <DataGridTemplateColumn Header="Frags" Width="60">
+                <DataGridTextColumn Header="Exp DPG" Binding="{Binding ExDamage, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
+                <DataGridTextColumn Header="Exp Spot" Binding="{Binding ExSpots, StringFormat=N2}" Width="60" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
+                <DataGridTextColumn Header="Exp Decap" Binding="{Binding ExDefense, StringFormat=N2}" Width="70" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
+                <DataGridTextColumn Header="Exp Winrate" Binding="{Binding ExWinrate, StringFormat=P2}" Width="80" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference expectedVisibility}}" />
+                <DataGridTextColumn Header="Co exp Frag" Binding="{Binding CoFrags, StringFormat=N2}" Width="75" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference compareExpectedVisibility}}" />
+                <DataGridTextColumn Header="Co exp DPG" Binding="{Binding CoDamage, StringFormat=N2}" Width="75" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference compareExpectedVisibility}}" />
+                <DataGridTextColumn Header="Co exp Spot" Binding="{Binding CoSpots, StringFormat=N2}" Width="75" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference compareExpectedVisibility}}" />
+                <DataGridTextColumn Header="Co exp Decap" Binding="{Binding CoDefense, StringFormat=N2}" Width="85" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference compareExpectedVisibility}}" />
+                <DataGridTextColumn Header="Co exp Winrate" Binding="{Binding CoWinrate, StringFormat=P2}" Width="95" ElementStyle="{StaticResource AlignRight}"
+                                    Visibility="{Binding Visibility, Source={x:Reference compareExpectedVisibility}}"/>
+                <DataGridTemplateColumn Header="D exp Frag" SortMemberPath="DeltaFrags" Width="70" Visibility="{Binding Visibility, Source={x:Reference deltaExpectedVisibility}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="3,0,3,0" HorizontalAlignment="Right"
+                                       Text="{Binding DeltaFrags, StringFormat=+#\,0.000;-#\,0.000;0.000}"
+                                       Foreground="{Binding DeltaFrags, Converter={x:Static converters:DeltaForegroundConverter.Instance}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="D exp DPG" SortMemberPath="DeltaDamage" Width="70" Visibility="{Binding Visibility, Source={x:Reference deltaExpectedVisibility}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="3,0,3,0" HorizontalAlignment="Right"
+                                       Text="{Binding DeltaDamage, StringFormat=+#\,0.000;-#\,0.000;0.000}"
+                                       Foreground="{Binding DeltaDamage, Converter={x:Static converters:DeltaForegroundConverter.Instance}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="D exp Spot" SortMemberPath="DeltaSpots" Width="70" Visibility="{Binding Visibility, Source={x:Reference deltaExpectedVisibility}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="3,0,3,0" HorizontalAlignment="Right"
+                                       Text="{Binding DeltaSpots, StringFormat=+#\,0.000;-#\,0.000;0.000}"
+                                       Foreground="{Binding DeltaSpots, Converter={x:Static converters:DeltaForegroundConverter.Instance}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="D exp Decap" SortMemberPath="DeltaDefense" Width="80" Visibility="{Binding Visibility, Source={x:Reference deltaExpectedVisibility}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="3,0,3,0" HorizontalAlignment="Right"
+                                       Text="{Binding DeltaDefense, StringFormat=+#\,0.000;-#\,0.000;0.000}"
+                                       Foreground="{Binding DeltaDefense, Converter={x:Static converters:DeltaForegroundConverter.Instance}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="D exp Winrate" SortMemberPath="DeltaWinrate" Width="90" Visibility="{Binding Visibility, Source={x:Reference deltaExpectedVisibility}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="3,0,3,0" HorizontalAlignment="Right"
+                                       Text="{Binding DeltaWinrate, StringFormat=+0.000%;-0.000%;0.000%}"
+                                       Foreground="{Binding DeltaWinrate, Converter={x:Static converters:DeltaForegroundConverter.Instance}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Frags" Width="60" Visibility="Collapsed">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
