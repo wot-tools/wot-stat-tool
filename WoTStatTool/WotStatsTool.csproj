@@ -70,6 +70,7 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="Model\TankFilter.cs" />
     <Compile Include="Model\TankStatistics.cs" />
+    <Compile Include="NGitVersion\Generated\GlobalAssemblyInfo.cs" />
     <Compile Include="NotifyTaskCompletion.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
@@ -165,6 +166,11 @@
     <ProjectReference Include="..\wg-api-wrapper\WGApiClient\WGApiClient.csproj">
       <Project>{391a1a15-ae97-408a-9373-3644494423d5}</Project>
       <Name>WGApiClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="NGitVersion\NGitVersion.csproj">
+      <Project>{badb59fb-1a14-42af-b314-152c4787f437}</Project>
+      <Name>NGitVersion</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
