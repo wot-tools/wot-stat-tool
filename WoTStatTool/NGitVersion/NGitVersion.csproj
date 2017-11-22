@@ -95,6 +95,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\LibGit2Sharp.NativeBinaries.1.0.129\build\LibGit2Sharp.NativeBinaries.props'))" />
   </Target>
+  <!-- https://stackoverflow.com/questions/12640878/force-visual-studio-to-rebuild-dependent-projects#answer-38115820 -->
   <ItemGroup>
     <None Include="$(MSBuildProjectDirectory)\Properties\Build\_buildforcer">
       <Visible>true</Visible>
