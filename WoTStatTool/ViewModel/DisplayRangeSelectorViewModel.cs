@@ -229,6 +229,10 @@ namespace WotStatsTool.ViewModel
             StartDates.Clear();
             EndDates.Clear();
             DaySnapshot = new DaySnapshot(userID);
+            if (IsDiffMode)
+                LoadNewestDifference();
+            else
+                LoadNewestSnapshot();
         }
 
         private void DeleteSelectedSnapshot()
@@ -240,6 +244,33 @@ namespace WotStatsTool.ViewModel
                     StartDates.Remove(selected);
                     StartDate = StartDates.LastOrDefault();
                 }
+        }
+
+        private void SelectFittingSnapshot(TimeSpan time)
+        {
+            DateTime now = DateTime.Now;
+            SelectFittingSnapshot(time.Days, d => (d, (int)(now - d).TotalDays));
+        }
+
+        private void SelectFittingSnapshot(int battles)
+        {
+            int totalBattles = DaySnapshot[DaySnapshot.AvailableDates.Last()].Sum(s => s.Statistics.Battles);
+            SelectFittingSnapshot(battles, d => (d, totalBattles - DaySnapshot[d].Sum(s => s.Statistics.Battles)));
+        }
+
+        private void SelectFittingSnapshot(int difference, Func<DateTime, (DateTime date, int difference)> getDifference)
+        {
+            var closestMatch = DaySnapshot.AvailableDates
+                .Select(getDifference)
+                .OrderBy(o => Math.Abs(o.difference - difference))
+                .FirstOrDefault().date;
+
+            if (closestMatch != DateTime.MinValue)
+            {
+                IsDiffMode = true;
+                StartDate = closestMatch;
+                EndDate = EndDates.Last();
+            }
         }
     }
 }
