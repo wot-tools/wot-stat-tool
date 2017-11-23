@@ -88,6 +88,7 @@
     <Compile Include="View\ExpectedValuesSelectorView.xaml.cs">
       <DependentUpon>ExpectedValuesSelectorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\INotificationService.cs" />
     <Compile Include="View\PlayerSelectView.xaml.cs">
       <DependentUpon>PlayerSelectView.xaml</DependentUpon>
     </Compile>
@@ -97,6 +98,7 @@
     <Compile Include="View\TankFilterView.xaml.cs">
       <DependentUpon>TankFilterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\WpfNotificationService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

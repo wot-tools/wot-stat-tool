@@ -41,6 +41,8 @@
         <Button Content="Show newest snapshot difference" Command="{Binding Path=NewestDifference}"
                 Grid.Row="2" Grid.Column="4"/>
 
+        <Button Content="Delete" Command="{Binding Path=DeleteSelected}" Foreground="Red"
+                Grid.Row="0" Grid.Column="6"/>
         <CheckBox Content="Compare snapshots" IsChecked="{Binding Path=IsDiffMode}"
                   Grid.Row="2" Grid.Column="6" VerticalAlignment="Center"/>
     </Grid>

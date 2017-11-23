@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WGApi;
 using WotStatsTool.Model;
+using WotStatsTool.Services;
 using WotStatsTool.ViewModel;
 
 namespace WotStatsTool
@@ -37,6 +38,9 @@ namespace WotStatsTool
         //viewmodels are initialized this way to ensure the binding works
         //binding does not work here when a viewmodel is directly assigned anywhere except here
         //if new assignments to viewmodels are needed, implement INotifyPropertyChanged on mainwindow
+        private readonly Lazy<INotificationService> _NotificationService;
+        private INotificationService NotificationService => _NotificationService.Value;
+
         private readonly Lazy<StatTotalsViewModel> _StatTotals;
         public StatTotalsViewModel StatTotals => _StatTotals.Value;
 
@@ -131,10 +135,11 @@ namespace WotStatsTool
             //temp set context to itself
             DataContext = this;
 
+            _NotificationService = new Lazy<INotificationService>(() => new WpfNotificationService());
             _StatTotals = new Lazy<StatTotalsViewModel>(() => new StatTotalsViewModel());
             _TankFilter = new Lazy<TankFilterViewModel>(() => new TankFilterViewModel());
             _PlayerSelect = new Lazy<PlayerSelectViewModel>(() => new PlayerSelectViewModel(Client, DisplayRangeSelector));
-            _DisplayRangeSelector = new Lazy<DisplayRangeSelectorViewModel>(() => new DisplayRangeSelectorViewModel(Client));
+            _DisplayRangeSelector = new Lazy<DisplayRangeSelectorViewModel>(() => new DisplayRangeSelectorViewModel(Client, NotificationService));
             _ExpectedValuesSelector = new Lazy<ExpectedValuesSelectorViewModel>(
                 () => new ExpectedValuesSelectorViewModel(new VbaddictExpectedValueList(), new XvmExpectedValueList()));
             _ExpectedValuesSelector2 = new Lazy<ExpectedValuesSelectorViewModel>(

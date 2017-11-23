@@ -6,12 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using WGApi;
 using WotStatsTool.Model;
+using WotStatsTool.Services;
 
 namespace WotStatsTool.ViewModel
 {
     public class DisplayRangeSelectorViewModel : BaseViewModel
     {
-        private WGApiClient Client;
+        private readonly WGApiClient Client;
+        private readonly INotificationService NotificationService;
 
         public ObservableCollection<DateTime> StartDates { get; } = new ObservableCollection<DateTime>();
         public ObservableCollection<DateTime> EndDates { get; } = new ObservableCollection<DateTime>();
@@ -114,11 +116,17 @@ namespace WotStatsTool.ViewModel
             }
         }
 
+        private Lazy<RelayCommand> _DeleteSelected;
+        public RelayCommand DeleteSelected => _DeleteSelected.Value;
+
         public NotifyTaskCompletion SnapshotTakingTask { get; private set; } = new NotifyTaskCompletion();
 
-        public DisplayRangeSelectorViewModel(WGApiClient client)
+        public DisplayRangeSelectorViewModel(WGApiClient client, INotificationService notificationService)
         {
             Client = client;
+            NotificationService = notificationService;
+
+            _DeleteSelected = new Lazy<RelayCommand>(() => new RelayCommand(o => DeleteSelectedSnapshot(), o => !IsDiffMode && StartDate != DateTime.MinValue));
         }
 
         private void TryCreateNewData()
@@ -221,6 +229,17 @@ namespace WotStatsTool.ViewModel
             StartDates.Clear();
             EndDates.Clear();
             DaySnapshot = new DaySnapshot(userID);
+        }
+
+        private void DeleteSelectedSnapshot()
+        {
+            var selected = StartDate;
+            if (NotificationService.Notify("TODO: message_delete", "TODO: caption_delete", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
+                if (DaySnapshot.DeleteSnapshot(selected))
+                {
+                    StartDates.Remove(selected);
+                    StartDate = StartDates.LastOrDefault();
+                }
         }
     }
 }

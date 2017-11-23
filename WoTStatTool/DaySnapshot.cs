@@ -34,6 +34,8 @@ namespace WotStatsTool
 
         private string Directory => Path.Combine(BaseDirectory, ID.ToString());
 
+        private string FilePath(DateTime date) => Path.Combine(Directory, date.Ticks.ToString());
+
         public DaySnapshot(int id)
         {
             ID = id;
@@ -69,14 +71,14 @@ namespace WotStatsTool
 
         private async Task SaveAsync(IEnumerable<TankStatistics> data, DateTime date)
         {
-            using (Stream stream = File.Create(Path.Combine(Directory, date.Ticks.ToString())))
+            using (Stream stream = File.Create(FilePath(date)))
             using (StreamWriter writer = new StreamWriter(stream))
                 await writer.WriteAsync(JsonConvert.SerializeObject(data));
         }
 
         private IEnumerable<TankStatistics> Load(DateTime date)
         {
-            using (Stream stream = File.OpenRead(Path.Combine(Directory, date.Ticks.ToString())))
+            using (Stream stream = File.OpenRead(FilePath(date)))
             using (StreamReader reader = new StreamReader(stream))
                 return JsonConvert.DeserializeObject<TankStatistics[]>(reader.ReadToEnd());
         }
@@ -95,6 +97,20 @@ namespace WotStatsTool
                     using (StreamWriter writer = new StreamWriter(stream))
                         writer.Write(JsonConvert.SerializeObject(shot.Select(s => new TankStatistics(s.Key, s.Value, 0))));
                 }
+        }
+
+        public bool DeleteSnapshot(DateTime date)
+        {
+            try
+            {
+                File.Delete(FilePath(date));
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"error trying to delete {FilePath(date)}: {e.Message}");
+                return false;
+            }
+            return true;
         }
 
         public IEnumerable<TankStatistics> CreateIntermediateSnapshot(DateTime begin, DateTime end)
