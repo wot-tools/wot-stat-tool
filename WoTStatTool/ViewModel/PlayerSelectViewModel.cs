@@ -76,6 +76,37 @@ namespace WotStatsTool.ViewModel
             Client = client;
             DisplayRangeSelector = displayRangeSelector;
             DisplayExistingRecords();
+            _FetchAll = new Lazy<RelayCommand>(() => new RelayCommand(o => FetchAllPlayers(), o => !IsFetchingAll));
+            PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == nameof(IsFetchingAll))
+                    FetchAll.RaiseCanExecuteChange();
+            };
+        }
+
+        private bool _IsFetchingAll;
+        public bool IsFetchingAll
+        {
+            get => _IsFetchingAll;
+            set
+            {
+                if (_IsFetchingAll == value) return;
+                _IsFetchingAll = value;
+                OnPropertyChanged(nameof(IsFetchingAll));
+            }
+        }
+
+        private Lazy<RelayCommand> _FetchAll;
+        public RelayCommand FetchAll => _FetchAll.Value;
+
+        private async Task FetchAllPlayers()
+        {
+            IsFetchingAll = true;
+            List<Task> tasks = new List<Task>();
+            foreach (var id in DaySnapshot.GetExistingPlayerIDs())
+                tasks.Add(new DaySnapshot(id).CreateNewSnapshotAsync(Client));
+            await Task.WhenAll(tasks);
+            IsFetchingAll = false;
         }
 
         private void DisplayExistingRecords()

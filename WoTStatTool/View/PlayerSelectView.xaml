@@ -15,6 +15,7 @@
                       SelectedItem="{Binding Path=ActivePlayer}"/>
             <Button Content="Search" Width="75" Command="{Binding Path=SearchPlayer}" Margin="3,0,0,0"/>
             <Button Content="Fetch" Width="75" Command="{Binding Path=FetchStatistics}" Margin="3,0,0,0"/>
+            <Button Content="Fetch All" Width="75" Command="{Binding Path=FetchAll}" Margin="3,0,0,0"/>
         </StackPanel>
     </Grid>
 </UserControl>

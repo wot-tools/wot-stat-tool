@@ -28,5 +28,7 @@ namespace WotStatsTool
         public bool CanExecute(object parameter) => _CanExecute?.Invoke(parameter) ?? true;
 
         public void Execute(object parameter) => _Execute?.Invoke(parameter);
+
+        public void RaiseCanExecuteChange() => CommandManager.InvalidateRequerySuggested();
     }
 }
