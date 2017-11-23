@@ -30,6 +30,7 @@ namespace WotStatsTool.ViewModel
         public void Reset()
         {
             Statistics = new Statistics();
+            WN8 = 0;
             TriggerEveryPropertyChanged();
         }
     }
