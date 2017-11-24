@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using WGApi;
 using WotStatsTool.Model;
 using WotStatsTool.Services;
@@ -35,6 +36,11 @@ namespace WotStatsTool.ViewModel
             }
         }
 
+        public DoubleCollection StartDatesTicks => new DoubleCollection(StartDates.Select(d => (double)d.Ticks));
+        public double StartDatesMinimum => StartDatesTicks.First();
+        public double StartDatesMaximum => StartDatesTicks.Last();
+
+
         private DateTime _StartDate;
         public DateTime StartDate
         {
@@ -55,6 +61,14 @@ namespace WotStatsTool.ViewModel
             }
         }
 
+        private Dictionary<double, DateTime> Dates => DaySnapshot.AvailableDates.ToDictionary(d => (double)d.Ticks);
+
+        public long StartDateTicks
+        {
+            get => StartDate.Ticks;
+            set => StartDate = Dates[value];
+        }
+
         private DateTime _EndDate;
         public DateTime EndDate
         {
@@ -66,6 +80,12 @@ namespace WotStatsTool.ViewModel
                 OnPropertyChanged(nameof(EndDate));
                 TryCreateNewData();
             }
+        }
+
+        public double EndDateTicks
+        {
+            get => EndDate.Ticks;
+            set => EndDate = new DateTime((long)value);
         }
 
         private IEnumerable<TankStatistics> _Data;
@@ -91,6 +111,9 @@ namespace WotStatsTool.ViewModel
             {
                 _DaySnapshot = value;
                 InitDates();
+                OnPropertyChanged(nameof(StartDatesTicks));
+                OnPropertyChanged(nameof(StartDatesMinimum));
+                OnPropertyChanged(nameof(StartDatesMaximum));
             }
         }
 
@@ -127,6 +150,7 @@ namespace WotStatsTool.ViewModel
             NotificationService = notificationService;
 
             _DeleteSelected = new Lazy<RelayCommand>(() => new RelayCommand(o => DeleteSelectedSnapshot(), o => !IsDiffMode && StartDate != DateTime.MinValue));
+            StartDates.CollectionChanged += (sender, e) => NewestDifference.RaiseCanExecuteChange();
         }
 
         private void TryCreateNewData()

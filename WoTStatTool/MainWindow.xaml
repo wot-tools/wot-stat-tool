@@ -64,8 +64,16 @@
                                                      IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=CompareExpectedValues}"/>
             </GroupBox>
 
-            <GroupBox Header="Snapshots" Grid.Row="1" Grid.Column="4">
-                <view:DisplayRangeSelectorView DataContext="{Binding Path=DisplayRangeSelector}" Margin="3"/>
+            <GroupBox Grid.Row="1" Grid.Column="4">
+                <GroupBox.Header>
+                    <CheckBox Content="slider" IsChecked="{Binding ShowSlider}"/>
+                </GroupBox.Header>
+                <StackPanel>
+                    <FrameworkElement x:Name="sliderVisibility" Visibility="{Binding ShowSlider, Converter={x:Static converters:BoolVisibilityConverter.Instance}}" />
+                    <FrameworkElement x:Name="sliderVisibilityInverted" Visibility="{Binding ShowSlider, Converter={x:Static converters:BoolVisibilityConverter.Instance}, ConverterParameter=true}" />
+                    <view:DisplayRangeSelectorSliderView DataContext="{Binding Path=DisplayRangeSelector}" Visibility="{Binding Visibility, Source={x:Reference sliderVisibility}}" Margin="3"/>
+                    <view:DisplayRangeSelectorView DataContext="{Binding Path=DisplayRangeSelector}" Visibility="{Binding Visibility, Source={x:Reference sliderVisibilityInverted}}" Margin="3"/>
+                </StackPanel>
             </GroupBox>
         </Grid>
 

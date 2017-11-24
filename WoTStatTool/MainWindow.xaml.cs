@@ -67,6 +67,19 @@ namespace WotStatsTool
         //DaySnapshot.CreateNewSnapshot(Client);
         //UpdateDates();
 
+        private bool _ShowSlider;
+        public bool ShowSlider
+        {
+            get => _ShowSlider;
+            set
+            {
+                if (_ShowSlider == value) return;
+                _ShowSlider = value;
+                OnPropertyChanged(nameof(ShowSlider));
+            }
+        }
+
+
         private bool _ShowExpectedValues = false;
         public bool ShowExpectedValues
         {
