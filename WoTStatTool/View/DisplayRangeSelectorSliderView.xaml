@@ -25,10 +25,15 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- https://wpfdaterangeslider.codeplex.com/ -->
+        <!-- https://docs.microsoft.com/en-us/dotnet/framework/wpf/controls/how-to-customize-the-ticks-on-a-slider -->
+        <!-- http://www.thejoyofcode.com/Creating_a_Range_Slider_in_WPF_and_other_cool_tips_and_tricks_for_UserControls_.aspx -->
+        <!-- http://www.wpf-tutorial.com/misc-controls/the-slider-control/ -->
+        
         <TextBlock Text="From" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
         <Slider Grid.Column="2" Grid.Row="0"
                 Ticks="{Binding Path=StartDatesTicks}"
-Value="{Binding Path=StartDateTicks}"
+                Value="{Binding Path=StartDateTicks}"
                 Maximum="{Binding Path=StartDatesMaximum}"
                 Minimum="{Binding Path=StartDatesMinimum}"
                 IsSnapToTickEnabled="True"
