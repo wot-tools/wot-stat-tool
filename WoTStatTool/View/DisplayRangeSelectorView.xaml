@@ -16,6 +16,8 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="6"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -50,5 +52,7 @@
                 Grid.Row="0" Grid.Column="6"/>
         <CheckBox Content="Compare snapshots" IsChecked="{Binding Path=IsDiffMode}"
                   Grid.Row="2" Grid.Column="6" VerticalAlignment="Center"/>
+
+        <ComboBox Grid.Column="8" Grid.Row="0" ItemsSource="{Binding Path=Spans}" SelectedItem="{Binding Path=Selection}" Width="80"/>
     </Grid>
 </UserControl>

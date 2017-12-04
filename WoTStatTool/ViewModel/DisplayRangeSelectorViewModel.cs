@@ -42,8 +42,8 @@ namespace WotStatsTool.ViewModel
         }
 
         public DoubleCollection StartDatesTicks => new DoubleCollection(StartDates.Select(d => (double)d.Ticks));
-        public double StartDatesMinimum => StartDatesTicks.First();
-        public double StartDatesMaximum => StartDatesTicks.Last();
+        public double StartDatesMinimum => StartDatesTicks.FirstOrDefault();
+        public double StartDatesMaximum => StartDatesTicks.LastOrDefault();
 
 
         private DateTime _StartDate;
@@ -284,6 +284,35 @@ namespace WotStatsTool.ViewModel
                     StartDates.Remove(selected);
                     StartDate = StartDates.LastOrDefault();
                 }
+        }
+
+        public ObservableCollection<string> Spans { get; } = new ObservableCollection<string>() { "1k", "500", "250", "100", "50", "1y", "6m", "3m", "2m", "1m", "2w", "1w", "1d" };
+
+        public string Selection
+        {
+            get => String.Empty;
+            set => Select(value);
+        }
+
+        //TODO: hack for now
+        private void Select(string selection)
+        {
+            switch (selection)
+            {
+                case "1k": SelectFittingSnapshot(1000); break;
+                case "500": SelectFittingSnapshot(500); break;
+                case "250": SelectFittingSnapshot(250); break;
+                case "100": SelectFittingSnapshot(100); break;
+                case "50": SelectFittingSnapshot(50); break;
+                case "1y": SelectFittingSnapshot(TimeSpan.FromDays(360)); break;
+                case "6m": SelectFittingSnapshot(TimeSpan.FromDays(180)); break;
+                case "3m": SelectFittingSnapshot(TimeSpan.FromDays(90)); break;
+                case "2m": SelectFittingSnapshot(TimeSpan.FromDays(60)); break;
+                case "1m": SelectFittingSnapshot(TimeSpan.FromDays(30)); break;
+                case "2w": SelectFittingSnapshot(TimeSpan.FromDays(14)); break;
+                case "1w": SelectFittingSnapshot(TimeSpan.FromDays(7)); break;
+                case "1d": SelectFittingSnapshot(TimeSpan.FromDays(1)); break;
+            }
         }
 
         private void SelectFittingSnapshot(TimeSpan time)
