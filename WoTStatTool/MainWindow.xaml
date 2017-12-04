@@ -30,6 +30,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <GroupBox Header="Check player" Grid.Row="0" Margin="0,0,0,3">
@@ -253,5 +254,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <ProgressBar Grid.Row="4" Value="{Binding Progress}" Height="20"/>
     </Grid>
 </Window>

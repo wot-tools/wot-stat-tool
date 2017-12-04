@@ -38,6 +38,9 @@ namespace WotStatsTool
         //viewmodels are initialized this way to ensure the binding works
         //binding does not work here when a viewmodel is directly assigned anywhere except here
         //if new assignments to viewmodels are needed, implement INotifyPropertyChanged on mainwindow
+        private Lazy<ILoadingVisualizationService> _LoadingVisualizationService;
+        private ILoadingVisualizationService LoadingVisualizationService => _LoadingVisualizationService.Value;
+
         private readonly Lazy<INotificationService> _NotificationService;
         private INotificationService NotificationService => _NotificationService.Value;
 
@@ -140,6 +143,18 @@ namespace WotStatsTool
 
         public Visibility CompareValuesVisibility => CompareExpectedValues ? Visibility.Visible : Visibility.Collapsed;
 
+        private double _Progress;
+        public double Progress
+        {
+            get => _Progress;
+            set
+            {
+                if (_Progress == value) return;
+                _Progress = value;
+                OnPropertyChanged(nameof(Progress));
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -148,10 +163,11 @@ namespace WotStatsTool
             //temp set context to itself
             DataContext = this;
 
+            _LoadingVisualizationService = new Lazy<ILoadingVisualizationService>(() => new WpfLoadingVisualizationService(p => Progress = p));
             _NotificationService = new Lazy<INotificationService>(() => new WpfNotificationService());
             _StatTotals = new Lazy<StatTotalsViewModel>(() => new StatTotalsViewModel());
             _TankFilter = new Lazy<TankFilterViewModel>(() => new TankFilterViewModel());
-            _PlayerSelect = new Lazy<PlayerSelectViewModel>(() => new PlayerSelectViewModel(Client, DisplayRangeSelector));
+            _PlayerSelect = new Lazy<PlayerSelectViewModel>(() => new PlayerSelectViewModel(Client, DisplayRangeSelector, LoadingVisualizationService));
             _DisplayRangeSelector = new Lazy<DisplayRangeSelectorViewModel>(() => new DisplayRangeSelectorViewModel(Client, NotificationService));
             _ExpectedValuesSelector = new Lazy<ExpectedValuesSelectorViewModel>(
                 () => new ExpectedValuesSelectorViewModel(new VbaddictExpectedValueList(), new XvmExpectedValueList()));

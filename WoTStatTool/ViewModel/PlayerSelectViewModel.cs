@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using WGApi;
+using WotStatsTool.Services;
 
 namespace WotStatsTool.ViewModel
 {
     public class PlayerSelectViewModel : BaseViewModel
     {
         private WGApiClient Client;
+        private readonly ILoadingVisualizationService LoadingVisualization;
 
         public string UserName => ActivePlayer?.Nickname;
         public int UserID => ActivePlayer?.ID ?? -1;
@@ -71,10 +74,11 @@ namespace WotStatsTool.ViewModel
 
         private readonly DisplayRangeSelectorViewModel DisplayRangeSelector;
 
-        public PlayerSelectViewModel(WGApiClient client, DisplayRangeSelectorViewModel displayRangeSelector)
+        public PlayerSelectViewModel(WGApiClient client, DisplayRangeSelectorViewModel displayRangeSelector, ILoadingVisualizationService loadingVisualization)
         {
             Client = client;
             DisplayRangeSelector = displayRangeSelector;
+            LoadingVisualization = loadingVisualization;
             DisplayExistingRecords();
             _FetchAll = new Lazy<RelayCommand>(() => new RelayCommand(o => FetchAllPlayers(), o => !IsFetchingAll));
             PropertyChanged += (sender, e) =>
@@ -102,11 +106,18 @@ namespace WotStatsTool.ViewModel
         private async Task FetchAllPlayers()
         {
             IsFetchingAll = true;
+            int counter = 0;
             List<Task> tasks = new List<Task>();
             foreach (var id in DaySnapshot.GetExistingPlayerIDs())
-                tasks.Add(new DaySnapshot(id).CreateNewSnapshotAsync(Client));
+                tasks.Add(Fetch(id, () => Interlocked.Increment(ref counter), tasks));
             await Task.WhenAll(tasks);
             IsFetchingAll = false;
+        }
+
+        private async Task Fetch(int id, Func<int> getCounter, List<Task> tasks)
+        {
+            await new DaySnapshot(id).CreateNewSnapshotAsync(Client);
+            LoadingVisualization.SetProgress(getCounter() / tasks.Count);
         }
 
         private void DisplayExistingRecords()

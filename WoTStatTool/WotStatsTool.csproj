@@ -77,6 +77,8 @@
     <Compile Include="NGitVersion\Generated\GlobalAssemblyInfo.cs" />
     <Compile Include="NotifyTaskCompletion.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Services\ILoadingVisualizationService.cs" />
+    <Compile Include="Services\WpfLoadingVisualizationService.cs" />
     <Compile Include="TrulyObservableCollection.cs" />
     <Compile Include="ViewModel\BaseStatisticsViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
