@@ -239,6 +239,11 @@ namespace WotStatsTool.ViewModel
 
         private void LoadNewestDifference()
         {
+            if (StartDates.Count < 2)
+            {
+                LoadNewestSnapshot();
+                return;
+            }
             IsDiffMode = true;
             SetEndDates();
             StartDate = StartDates[StartDates.Count - 2];
