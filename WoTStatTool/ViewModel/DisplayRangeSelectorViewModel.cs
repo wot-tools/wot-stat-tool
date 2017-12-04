@@ -117,27 +117,17 @@ namespace WotStatsTool.ViewModel
             }
         }
 
-        private RelayCommand _NewestSnapshot;
-        public RelayCommand NewestSnapshot
-        {
-            get
-            {
-                if (_NewestSnapshot == null)
-                    _NewestSnapshot = new RelayCommand(o => LoadNewestSnapshot(), o => DaySnapshot?.AvailableDates?.Length > 0);
-                return _NewestSnapshot;
-            }
-        }
+        private Lazy<RelayCommand> _NewestSnapshot;
+        public RelayCommand NewestSnapshot => _NewestSnapshot.Value;
 
-        private RelayCommand _NewestDifference;
-        public RelayCommand NewestDifference
-        {
-            get
-            {
-                if (_NewestDifference == null)
-                    _NewestDifference = new RelayCommand(o => LoadNewestDifference(), o => DaySnapshot?.AvailableDates?.Length > 1);
-                return _NewestDifference;
-            }
-        }
+        private Lazy<RelayCommand> _NewestDifference;
+        public RelayCommand NewestDifference => _NewestDifference.Value;
+
+        private Lazy<RelayCommand> _PreviousDifference;
+        public RelayCommand PreviousDifference => _PreviousDifference.Value;
+
+        private Lazy<RelayCommand> _NextDifference;
+        public RelayCommand NextDifference => _NextDifference.Value;
 
         private Lazy<RelayCommand> _DeleteSelected;
         public RelayCommand DeleteSelected => _DeleteSelected.Value;
@@ -149,6 +139,10 @@ namespace WotStatsTool.ViewModel
             Client = client;
             NotificationService = notificationService;
 
+            _NewestSnapshot = new Lazy<RelayCommand>(() => new RelayCommand(o => LoadNewestSnapshot(), o => DaySnapshot?.AvailableDates?.Length > 0));
+            _NewestDifference = new Lazy<RelayCommand>(() => new RelayCommand(o => LoadNewestDifference(), o => DaySnapshot?.AvailableDates?.Length > 1));
+            _PreviousDifference = new Lazy<RelayCommand>(() => new RelayCommand(o => ShiftDifference(-1), o => IsDiffMode && StartDates.IndexOf(StartDate) > 1));
+            _NextDifference = new Lazy<RelayCommand>(() => new RelayCommand(o => ShiftDifference(+1), o => IsDiffMode && StartDates.IndexOf(EndDate) <= StartDates.Count - 2));
             _DeleteSelected = new Lazy<RelayCommand>(() => new RelayCommand(o => DeleteSelectedSnapshot(), o => !IsDiffMode && StartDate != DateTime.MinValue));
             StartDates.CollectionChanged += (sender, e) => NewestDifference.RaiseCanExecuteChange();
         }
@@ -244,6 +238,18 @@ namespace WotStatsTool.ViewModel
             SetEndDates();
             StartDate = StartDates[StartDates.Count - 2];
             EndDate = EndDates.Last();
+        }
+
+        private void ShiftDifference(int increment)
+        {
+            int startIndex = StartDates.IndexOf(StartDate) + increment;
+            int endIndex = StartDates.IndexOf(EndDate) + increment;
+
+            if (startIndex < 0 || endIndex >= StartDates.Count)
+                return;
+
+            StartDate = StartDates[startIndex];
+            EndDate = StartDates[endIndex];
         }
 
         public void LoadUser(int userID)

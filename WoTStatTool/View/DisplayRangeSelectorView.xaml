@@ -38,8 +38,13 @@
 
         <Button Content="Show newest snapshot" Command="{Binding Path=NewestSnapshot}"
                 Grid.Row="0" Grid.Column="4"/>
-        <Button Content="Show newest snapshot difference" Command="{Binding Path=NewestDifference}"
-                Grid.Row="2" Grid.Column="4"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="4">
+            <Button Content="&lt;" Command="{Binding Path=PreviousDifference}"/>
+            <Button Content="Show newest snapshot difference" Command="{Binding Path=NewestDifference}"/>
+            <Button Content="&gt;" Command="{Binding Path=NextDifference}"/>
+        </StackPanel>
+
+
 
         <Button Content="Delete" Command="{Binding Path=DeleteSelected}" Foreground="Red"
                 Grid.Row="0" Grid.Column="6"/>
