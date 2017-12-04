@@ -33,6 +33,11 @@ namespace WotStatsTool.ViewModel
                     EndDate = DateTime.MinValue;
                     EndDates.Clear();
                 }
+                else
+                {
+                    SetEndDates();
+                    EndDate = EndDates.FirstOrDefault();
+                }
             }
         }
 
