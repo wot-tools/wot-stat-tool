@@ -8,16 +8,16 @@ namespace WotStatsTool.Services
 {
     public class WpfLoadingVisualizationService : ILoadingVisualizationService
     {
-        private readonly Action<double> SetProgress;
+        private readonly Action<int> SetProgress;
 
-        public WpfLoadingVisualizationService(Action<double> setProgress)
+        public WpfLoadingVisualizationService(Action<int> setProgress)
         {
             SetProgress = setProgress;
         }
 
         void ILoadingVisualizationService.SetProgress(double progress)
         {
-            SetProgress(progress);
+            SetProgress((int)(progress * 100));
         }
     }
 }
