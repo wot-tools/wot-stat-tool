@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="WotStatsTool.DateTimeRangePicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WotStatsTool"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             ><!-- DataContext="{Binding RelativeSource={RelativeSource Self}}" -->
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <ComboBox ItemsSource="{Binding StartDates, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                      SelectedItem="{Binding StartDate2, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                      ItemStringFormat="dd.MM.yyyy HH:mm"/>
+            <Label Content="{Binding StartDate2, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            <ComboBox ItemsSource="{Binding EndDates, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                      SelectedItem="{Binding EndDate, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                      ItemStringFormat="dd.MM.yyyy HH:mm"
+                      IsEnabled="{Binding EndDatesVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+            <ListBox ItemsSource="{Binding StartDatesTicks, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Height="200"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
