@@ -96,7 +96,7 @@ namespace WotStatsTool.ViewModel
 
         private async Task Initialize()
         {
-            await Task.WhenAll(VbAddict.Initialize(), Xvm.Initialize());
+            await Task.WhenAny(Task.WhenAll(VbAddict.Initialize(), Xvm.Initialize()), Task.Delay(TimeSpan.FromSeconds(10)));
             XvmSelected = true;
             IsInitialized = true;
         }
