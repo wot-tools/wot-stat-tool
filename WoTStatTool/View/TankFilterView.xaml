@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WotStatsTool.View"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="750"
+             d:DesignHeight="800" d:DesignWidth="750"
              d:DesignStyle="{StaticResource UserControlDesignerSpecificStyle}">
     <UserControl.Resources>
         <Style x:Key="StyleButtonNone" TargetType="Button">
@@ -16,6 +16,10 @@
             <Setter Property="Width" Value="40"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="3,0,0,0"/>
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -39,68 +43,245 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="3" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <!--disregarded formatting to achieve easier change in columns or whatever-->
-        <CheckBox Grid.Row="2"  Grid.Column="0" Content="Tier_1" IsChecked="{Binding Path=Tier1}"/>
-        <CheckBox Grid.Row="4"  Grid.Column="0" Content="Tier_2" IsChecked="{Binding Path=Tier2}"/>
-        <CheckBox Grid.Row="6"  Grid.Column="0" Content="Tier_3" IsChecked="{Binding Path=Tier3}"/>
-        <CheckBox Grid.Row="8"  Grid.Column="0" Content="Tier_4" IsChecked="{Binding Path=Tier4}"/>
-        <CheckBox Grid.Row="10" Grid.Column="0" Content="Tier_5" IsChecked="{Binding Path=Tier5}"/>
-        <CheckBox Grid.Row="2"  Grid.Column="2" Content="Tier_6" IsChecked="{Binding Path=Tier6}"/>
-        <CheckBox Grid.Row="4"  Grid.Column="2" Content="Tier_7" IsChecked="{Binding Path=Tier7}"/>
-        <CheckBox Grid.Row="6"  Grid.Column="2" Content="Tier_8" IsChecked="{Binding Path=Tier8}"/>
-        <CheckBox Grid.Row="8"  Grid.Column="2" Content="Tier_9" IsChecked="{Binding Path=Tier9}"/>
-        <CheckBox Grid.Row="10" Grid.Column="2" Content="Tier1_0" IsChecked="{Binding Path=Tier10}"/>
+        <CheckBox Grid.Row="2"  Grid.Column="0" IsChecked="{Binding Path=Tier1}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_1.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _1</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="4"  Grid.Column="0" IsChecked="{Binding Path=Tier2}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_2.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _2</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding Path=Tier3}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_3.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _3</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="8"  Grid.Column="0" IsChecked="{Binding Path=Tier4}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_4.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _4</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="10" Grid.Column="0" IsChecked="{Binding Path=Tier5}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_5.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _5</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="12"  Grid.Column="0" IsChecked="{Binding Path=Tier6}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_6.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _6</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="14"  Grid.Column="0" IsChecked="{Binding Path=Tier7}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_7.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _7</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="16"  Grid.Column="0" IsChecked="{Binding Path=Tier8}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_8.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _8</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="18"  Grid.Column="0" IsChecked="{Binding Path=Tier9}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_9.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier _9</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="20" Grid.Column="0" IsChecked="{Binding Path=Tier10}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Tiers/tank_level_10.png" Width="23"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Tier 1_0</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <Button Content="None" Command="{Binding Path=SetTiersUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Content="All"  Command="{Binding Path=SetTiersChecked}" Style="{StaticResource StyleButtonAll}"/> 
-        </StackPanel>        
+        </StackPanel>
 
-        <CheckBox Grid.Row="2"  Grid.Column="4" Content="USS_R"    IsChecked="{Binding Path=USSR}"/>
-        <CheckBox Grid.Row="4"  Grid.Column="4" Content="_France"  IsChecked="{Binding Path=France}"/>
-        <CheckBox Grid.Row="6"  Grid.Column="4" Content="_Germany" IsChecked="{Binding Path=Germany}"/>
-        <CheckBox Grid.Row="8"  Grid.Column="4" Content="_USA"     IsChecked="{Binding Path=USA}"/>
-        <CheckBox Grid.Row="10" Grid.Column="4" Content="U_K"      IsChecked="{Binding Path=UK}"/>
-        <CheckBox Grid.Row="2"  Grid.Column="6" Content="Chi_na"   IsChecked="{Binding Path=China}"/>
-        <CheckBox Grid.Row="4"  Grid.Column="6" Content="_Japan"   IsChecked="{Binding Path=Japan}"/>
-        <CheckBox Grid.Row="6"  Grid.Column="6" Content="_Czech"   IsChecked="{Binding Path=Czech}"/>
-        <CheckBox Grid.Row="8"  Grid.Column="6" Content="_Sweden"  IsChecked="{Binding Path=Sweden}"/>
-        <CheckBox Grid.Row="10"  Grid.Column="6" Content="_Poland"  IsChecked="{Binding Path=Poland}"/>
+        <CheckBox Grid.Row="2" Grid.Column="4" IsChecked="{Binding Path=USSR}" Name="checkBoxNationUSSR">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/ussr.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>USS_R</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="4"  Grid.Column="4" IsChecked="{Binding Path=France}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/france.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_France</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="6"  Grid.Column="4" IsChecked="{Binding Path=Germany}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/germany.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Germany</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="8"  Grid.Column="4" IsChecked="{Binding Path=USA}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/usa.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_USA</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="10" Grid.Column="4" IsChecked="{Binding Path=UK}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/uk.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>U_K</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="12"  Grid.Column="4" IsChecked="{Binding Path=China}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/china.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>Chi_na</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="14"  Grid.Column="4" IsChecked="{Binding Path=Japan}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/japan.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Japan</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="16"  Grid.Column="4" IsChecked="{Binding Path=Czech}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/czech.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Czech</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="18"  Grid.Column="4" IsChecked="{Binding Path=Sweden}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/sweden.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Sweden</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="20"  Grid.Column="4" IsChecked="{Binding Path=Poland}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/poland.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Poland</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <Button Content="None" Command="{Binding Path=SetNationsUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Content="All"  Command="{Binding Path=SetNationsChecked}" Style="{StaticResource StyleButtonAll}"/>
-        </StackPanel>        
+        </StackPanel>
 
-        <CheckBox Grid.Row="2"  Grid.Column="8" Content="_Heavy" IsChecked="{Binding Path=Heavy}" />
-        <CheckBox Grid.Row="4"  Grid.Column="8" Content="_Medium" IsChecked="{Binding Path=Medium}" />
-        <CheckBox Grid.Row="6"  Grid.Column="8" Content="_Light" IsChecked="{Binding Path=Light}" />
-        <CheckBox Grid.Row="8"  Grid.Column="8" Content="_TD" IsChecked="{Binding Path=TD}" />
-        <CheckBox Grid.Row="10" Grid.Column="8" Content="SPG" IsChecked="{Binding Path=SPG}" />
+        <CheckBox Grid.Row="2"  Grid.Column="8" IsChecked="{Binding Path=Heavy}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Types/heavyTank.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Heavy</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="4"  Grid.Column="8" IsChecked="{Binding Path=Medium}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Types/mediumTank.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Medium</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="6"  Grid.Column="8" IsChecked="{Binding Path=Light}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Types/lightTank.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Light</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="8"  Grid.Column="8" IsChecked="{Binding Path=TD}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Types/AT-SPG.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_TD</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
+        <CheckBox Grid.Row="10" Grid.Column="8" IsChecked="{Binding Path=SPG}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Types/SPG.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>SPG</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="8" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="8" HorizontalAlignment="Center">
             <Button Content="None" Command="{Binding Path=SetVehicleTypesUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Content="All"  Command="{Binding Path=SetVehicleTypesChecked}" Style="{StaticResource StyleButtonAll}"/>
         </StackPanel>
@@ -110,7 +291,7 @@
         <CheckBox Grid.Row="6"  Grid.Column="10" Content="1 MoE" IsChecked="{Binding Path=MoE1}" />
         <CheckBox Grid.Row="8"  Grid.Column="10" Content="0 MoE" IsChecked="{Binding Path=MoE0}" />
 
-        <StackPanel Orientation="Horizontal" Grid.Row="13" Grid.Column="10" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="10" HorizontalAlignment="Center">
             <Button Grid.Row="12" Grid.Column="8"  Content="None" Command="{Binding Path=SetMoEUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Grid.Row="12" Grid.Column="10" Content="All"  Command="{Binding Path=SetMoEChecked}" Style="{StaticResource StyleButtonAll}"/>
         </StackPanel>
@@ -120,7 +301,7 @@
 
         <CheckBox Grid.Row="8" Grid.Column="12" Content="0 _Battles" IsChecked="{Binding Path=ZeroBattles}"/>
 
-        <TextBox Grid.Row="13" Grid.Column="12" Grid.ColumnSpan="2" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Grid.Row="13" Grid.Column="15" Content="Clear" Command="{Binding Path=ClearText}"/>
+        <TextBox Grid.Row="22" Grid.Column="12" Grid.ColumnSpan="2" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="22" Grid.Column="15" Content="Clear" Command="{Binding Path=ClearText}"/>
     </Grid>
 </UserControl>

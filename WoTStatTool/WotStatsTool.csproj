@@ -195,5 +195,36 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Nations\china.png" />
+    <Resource Include="Images\Nations\czech.png" />
+    <Resource Include="Images\Nations\france.png" />
+    <Resource Include="Images\Nations\germany.png" />
+    <Resource Include="Images\Nations\japan.png" />
+    <Resource Include="Images\Nations\poland.png" />
+    <Resource Include="Images\Nations\sweden.png" />
+    <Resource Include="Images\Nations\uk.png" />
+    <Resource Include="Images\Nations\usa.png" />
+    <Resource Include="Images\Nations\ussr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Types\AT-SPG.png" />
+    <Resource Include="Images\Types\heavyTank.png" />
+    <Resource Include="Images\Types\lightTank.png" />
+    <Resource Include="Images\Types\mediumTank.png" />
+    <Resource Include="Images\Types\SPG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Tiers\tank_level_1.png" />
+    <Resource Include="Images\Tiers\tank_level_10.png" />
+    <Resource Include="Images\Tiers\tank_level_2.png" />
+    <Resource Include="Images\Tiers\tank_level_3.png" />
+    <Resource Include="Images\Tiers\tank_level_4.png" />
+    <Resource Include="Images\Tiers\tank_level_5.png" />
+    <Resource Include="Images\Tiers\tank_level_6.png" />
+    <Resource Include="Images\Tiers\tank_level_7.png" />
+    <Resource Include="Images\Tiers\tank_level_8.png" />
+    <Resource Include="Images\Tiers\tank_level_9.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
