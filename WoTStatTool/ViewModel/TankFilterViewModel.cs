@@ -232,6 +232,17 @@ namespace WotStatsTool.ViewModel
                 OnPropertyChanged(nameof(Poland));
             }
         }
+
+        public bool Italy
+        {
+            get => Nations.HasFlag(Nations.Italy);
+            set
+            {
+                if (Italy == value) return;
+                Nations ^= Nations.Italy;
+                OnPropertyChanged(nameof(Italy));
+            }
+        }
         #endregion Nations
 
         #region VehicleTypes

@@ -63,6 +63,8 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="1" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="1" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="3" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
@@ -149,7 +151,7 @@
             </StackPanel>
         </CheckBox>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <Button Content="None" Command="{Binding Path=SetTiersUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Content="All"  Command="{Binding Path=SetTiersChecked}" Style="{StaticResource StyleButtonAll}"/> 
         </StackPanel>
@@ -234,8 +236,16 @@
                 </TextBlock>
             </StackPanel>
         </CheckBox>
+        <CheckBox Grid.Row="22"  Grid.Column="4" IsChecked="{Binding Path=Italy}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Images/Nations/italy.png"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+                    <AccessText>_Italy</AccessText>
+                </TextBlock>
+            </StackPanel>
+        </CheckBox>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="24" Grid.Column="4" Grid.ColumnSpan="3" HorizontalAlignment="Center">
             <Button Content="None" Command="{Binding Path=SetNationsUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Content="All"  Command="{Binding Path=SetNationsChecked}" Style="{StaticResource StyleButtonAll}"/>
         </StackPanel>
@@ -281,7 +291,7 @@
             </StackPanel>
         </CheckBox>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="8" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="24" Grid.Column="8" HorizontalAlignment="Center">
             <Button Content="None" Command="{Binding Path=SetVehicleTypesUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Content="All"  Command="{Binding Path=SetVehicleTypesChecked}" Style="{StaticResource StyleButtonAll}"/>
         </StackPanel>
@@ -291,7 +301,7 @@
         <CheckBox Grid.Row="6"  Grid.Column="10" Content="1 MoE" IsChecked="{Binding Path=MoE1}" />
         <CheckBox Grid.Row="8"  Grid.Column="10" Content="0 MoE" IsChecked="{Binding Path=MoE0}" />
 
-        <StackPanel Orientation="Horizontal" Grid.Row="22" Grid.Column="10" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Row="24" Grid.Column="10" HorizontalAlignment="Center">
             <Button Grid.Row="12" Grid.Column="8"  Content="None" Command="{Binding Path=SetMoEUnchecked}" Style="{StaticResource StyleButtonNone}"/>
             <Button Grid.Row="12" Grid.Column="10" Content="All"  Command="{Binding Path=SetMoEChecked}" Style="{StaticResource StyleButtonAll}"/>
         </StackPanel>
@@ -301,7 +311,7 @@
 
         <CheckBox Grid.Row="8" Grid.Column="12" Content="0 _Battles" IsChecked="{Binding Path=ZeroBattles}"/>
 
-        <TextBox Grid.Row="22" Grid.Column="12" Grid.ColumnSpan="2" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Grid.Row="22" Grid.Column="15" Content="Clear" Command="{Binding Path=ClearText}"/>
+        <TextBox Grid.Row="24" Grid.Column="12" Grid.ColumnSpan="2" Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="24" Grid.Column="15" Content="Clear" Command="{Binding Path=ClearText}"/>
     </Grid>
 </UserControl>
