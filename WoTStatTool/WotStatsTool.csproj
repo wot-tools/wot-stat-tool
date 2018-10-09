@@ -200,6 +200,7 @@
     <Resource Include="Images\Nations\czech.png" />
     <Resource Include="Images\Nations\france.png" />
     <Resource Include="Images\Nations\germany.png" />
+	<Resource Include="Images\Nations\italy.png" />
     <Resource Include="Images\Nations\japan.png" />
     <Resource Include="Images\Nations\poland.png" />
     <Resource Include="Images\Nations\sweden.png" />
