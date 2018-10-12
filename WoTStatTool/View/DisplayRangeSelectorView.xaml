@@ -32,13 +32,6 @@
                   SelectedItem="{Binding Path=StartDate}"
                   ItemStringFormat="dd.MM.yyyy HH:mm"/>
 
-        <a:DateTimeRangePicker Grid.Column="2" Grid.Row="1"
-                               StartDate2="{Binding StartDate}"
-                               StartDates="{Binding StartDates}"
-                               EndDate="{Binding EndDate}"
-                               EndDates="{Binding EndDates}"
-                               EndDatesVisible="{Binding IsDiffMode}"/>
-
         <TextBlock Text="To" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"/>
         <ComboBox Grid.Column="2" Grid.Row="2"
                   ItemsSource="{Binding Path=EndDates}"

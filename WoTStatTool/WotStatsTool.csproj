@@ -71,9 +71,6 @@
     <Compile Include="Converters\DeltaForegroundConverter.cs" />
     <Compile Include="Converters\Wn8ColorConverter.cs" />
     <Compile Include="Converters\Wn8ForegroundColorConverter.cs" />
-    <Compile Include="DateTimeRangePicker.xaml.cs">
-      <DependentUpon>DateTimeRangePicker.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Helpers.cs" />
     <Compile Include="Model\TankFilter.cs" />
     <Compile Include="Model\TankStatistics.cs" />
@@ -91,9 +88,6 @@
     <Compile Include="ViewModel\StatTotalsViewModel.cs" />
     <Compile Include="ViewModel\TankFilterViewModel.cs" />
     <Compile Include="ViewModel\TankStatisticsViewModel.cs" />
-    <Compile Include="View\DisplayRangeSelectorSliderView.xaml.cs">
-      <DependentUpon>DisplayRangeSelectorSliderView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\DisplayRangeSelectorView.xaml.cs">
       <DependentUpon>DisplayRangeSelectorView.xaml</DependentUpon>
     </Compile>
@@ -111,10 +105,6 @@
       <DependentUpon>TankFilterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\WpfNotificationService.cs" />
-    <Page Include="DateTimeRangePicker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -129,10 +119,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\DisplayRangeSelectorSliderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\DisplayRangeSelectorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

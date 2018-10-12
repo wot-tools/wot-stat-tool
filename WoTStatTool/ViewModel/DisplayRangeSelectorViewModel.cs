@@ -41,11 +41,6 @@ namespace WotStatsTool.ViewModel
             }
         }
 
-        public DoubleCollection StartDatesTicks => new DoubleCollection(StartDates.Select(d => (double)d.Ticks));
-        public double StartDatesMinimum => StartDatesTicks.FirstOrDefault();
-        public double StartDatesMaximum => StartDatesTicks.LastOrDefault();
-
-
         private DateTime _StartDate;
         public DateTime StartDate
         {
@@ -116,9 +111,6 @@ namespace WotStatsTool.ViewModel
             {
                 _DaySnapshot = value;
                 InitDates();
-                OnPropertyChanged(nameof(StartDatesTicks));
-                OnPropertyChanged(nameof(StartDatesMinimum));
-                OnPropertyChanged(nameof(StartDatesMaximum));
             }
         }
 

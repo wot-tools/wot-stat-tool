@@ -16,7 +16,7 @@ namespace WotStatsTool.Converters
         /// <param name="parameter">if true inverts value</param>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool p = parameter is default ? false : bool.Parse(parameter as string);
+            bool p = parameter is null ? false : bool.Parse(parameter as string);
             if (value is bool v)
                 return v ^ p ? Visibility.Visible : Visibility.Collapsed;
             else

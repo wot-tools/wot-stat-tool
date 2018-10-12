@@ -72,7 +72,6 @@
                 <StackPanel>
                     <FrameworkElement x:Name="sliderVisibility" Visibility="{Binding ShowSlider, Converter={x:Static converters:BoolVisibilityConverter.Instance}}" />
                     <FrameworkElement x:Name="sliderVisibilityInverted" Visibility="{Binding ShowSlider, Converter={x:Static converters:BoolVisibilityConverter.Instance}, ConverterParameter=true}" />
-                    <view:DisplayRangeSelectorSliderView DataContext="{Binding Path=DisplayRangeSelector}" Visibility="{Binding Visibility, Source={x:Reference sliderVisibility}}" Margin="3"/>
                     <view:DisplayRangeSelectorView DataContext="{Binding Path=DisplayRangeSelector}" Visibility="{Binding Visibility, Source={x:Reference sliderVisibilityInverted}}" Margin="3"/>
                 </StackPanel>
             </GroupBox>
