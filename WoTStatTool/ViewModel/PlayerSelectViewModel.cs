@@ -126,9 +126,8 @@ namespace WotStatsTool.ViewModel
             if (!ids.Any())
                 return;
             var task = Client.GetPlayerStatsAsync(ids);
-            Action<Task<Dictionary<int, PlayerInfo>>> action = t => SetMatchingPlayers(t.Result.Select(p => new PlayerIDRecord { ID = p.Key, Nickname = p.Value.Nick }));
 
-            task.ContinueWith(action, TaskContinuationOptions.ExecuteSynchronously);
+            task.ContinueWith((t => SetMatchingPlayers(t.Result.Select(p => new PlayerIDRecord { ID = p.Key, Nickname = p.Value.Nick }))), TaskContinuationOptions.ExecuteSynchronously);
             //Helpers.PreventAsyncDeadlockHack(task, action);
         }
 
@@ -148,24 +147,22 @@ namespace WotStatsTool.ViewModel
                 return;
             }
             var task = Client.SearchPlayerStartsWithAsync(query);
-            Action<Task<Dictionary<string, int>>> action = t =>
+            Helpers.PreventAsyncDeadlockHack(task, t =>
             {
                 var players = t.Result?.Select(r => new PlayerIDRecord { Nickname = r.Key, ID = r.Value }).ToArray();
                 SetMatchingPlayers(players);
-            };
-            Helpers.PreventAsyncDeadlockHack(task, action);
+            });
         }
 
         private void SearchPlayerExact(string query)
         {
             var task = Client.SearchPlayerExactAsync(query);
-            Action<Task<int>> action = t =>
+            Helpers.PreventAsyncDeadlockHack(task, t =>
             {
                 int id = t.Result;
                 if (id > 0)
                     ActivePlayer = new PlayerIDRecord { Nickname = query, ID = id };
-            };
-            Helpers.PreventAsyncDeadlockHack(task, action);
+            });
         }
     }
 }
