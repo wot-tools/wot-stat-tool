@@ -1,6 +1,3 @@
 [submodule "wg-api-wrapper"]
 	path = wg-api-wrapper
 	url = https://github.com/wot-tools/wg-api-wrapper.git
-[submodule "dll"]
-	path = dll
-	url = https://github.com/wot-tools/dll.git
