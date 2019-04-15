@@ -37,9 +37,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dll\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -162,6 +161,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -171,8 +171,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\wg-api-wrapper\WGApiClient\WGApiClient.csproj">
-      <Project>{391a1a15-ae97-408a-9373-3644494423d5}</Project>
+    <ProjectReference Include="..\wg-api-wrapper\src\WGApiClient.csproj">
+      <Project>{884f07e5-b4fb-465a-afc9-38f7f9063f11}</Project>
       <Name>WGApiClient</Name>
     </ProjectReference>
     <ProjectReference Include="NGitVersion\NGitVersion.csproj">
@@ -186,7 +186,7 @@
     <Resource Include="Images\Nations\czech.png" />
     <Resource Include="Images\Nations\france.png" />
     <Resource Include="Images\Nations\germany.png" />
-	<Resource Include="Images\Nations\italy.png" />
+    <Resource Include="Images\Nations\italy.png" />
     <Resource Include="Images\Nations\japan.png" />
     <Resource Include="Images\Nations\poland.png" />
     <Resource Include="Images\Nations\sweden.png" />
