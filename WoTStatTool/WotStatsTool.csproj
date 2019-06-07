@@ -60,7 +60,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ApiKey.cs" />
     <Compile Include="Converters\BoolVisibilityConverter.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\ForegroundColorConverter.cs" />
@@ -212,6 +211,11 @@
     <Resource Include="Images\Tiers\tank_level_7.png" />
     <Resource Include="Images\Tiers\tank_level_8.png" />
     <Resource Include="Images\Tiers\tank_level_9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="apikey.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

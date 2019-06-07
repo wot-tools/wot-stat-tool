@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -32,7 +33,7 @@ namespace WotStatsTool
 
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        private readonly WGApiClient Client = new WGApiClient("https://api.worldoftanks", Region.eu, ApiKey.Key, new Logger());
+        private readonly WGApiClient Client = new WGApiClient("https://api.worldoftanks", Region.eu, File.ReadAllText("apikey.txt"), new Logger());
         public ObservableCollection<TankStatisticsViewModel> Collection { get; } = new ObservableCollection<TankStatisticsViewModel>();
 
         //viewmodels are initialized this way to ensure the binding works
