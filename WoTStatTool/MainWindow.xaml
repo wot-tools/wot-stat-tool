@@ -89,7 +89,16 @@
                 <view:StatTotalsView Grid.Column="0" DataContext="{Binding Path=StatTotals}" Margin="3"/>
             </GroupBox>
 
-            <GroupBox Header="Filter" Margin="6,0,0,0">
+            <GroupBox Margin="6,0,0,0">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Filter ("/>
+                        <TextBlock Text="{Binding Path=FilteredTankCount}" FontWeight="Bold"/>
+                        <TextBlock Text="/"/>
+                        <TextBlock Text="{Binding Path=TotalTankCount}"/>
+                        <TextBlock Text=")"/>
+                    </StackPanel>
+                </GroupBox.Header>
                 <view:TankFilterView Grid.Column="2" DataContext="{Binding Path=TankFilter}" Margin="3"/>
             </GroupBox>
 

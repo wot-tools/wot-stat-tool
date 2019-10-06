@@ -218,13 +218,43 @@ namespace WotStatsTool
             if (stats == null)
             {
                 StatTotals.Reset();
+                TotalTankCount = 0;
+                FilteredTankCount = 0;
                 return;
             }
+
+            stats = stats.ToArray();
+            TotalTankCount = stats.Count();
             var rows = stats.Select(MakeRow).Where(r => r.MeetsFilterCriteria(TankFilter.TankFilter)).ToArray();
+            FilteredTankCount = rows.Length;
             foreach (TankStatisticsViewModel row in rows)
                 Collection.Add(row);
             //lblWN8.Text = WN8.AccountWN8(ExpectedValueList, WN8Version, columns).ToString("N2");
             StatTotals.Update(ExpectedValueSelector.SelectedExpectedValues, rows.Select(r => r.ToTankStatistics()));
+        }
+
+        private int _TotalTankCount;
+        public int TotalTankCount
+        {
+            get => _TotalTankCount;
+            set
+            {
+                if (value == _TotalTankCount) return;
+                _TotalTankCount = value;
+                OnPropertyChanged(nameof(TotalTankCount));
+            }
+        }
+
+        private int _FilteredTankCount;
+        public int FilteredTankCount
+        {
+            get => _FilteredTankCount;
+            set
+            {
+                if (value == _FilteredTankCount) return;
+                _FilteredTankCount = value;
+                OnPropertyChanged(nameof(FilteredTankCount));
+            }
         }
     }
 
