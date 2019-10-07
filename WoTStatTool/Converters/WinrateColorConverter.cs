@@ -15,7 +15,8 @@ namespace WotStatsTool.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double val = (double)value;
+            if (!(value is double val))
+                val = 0;
 
             static SolidColorBrush fromHex(WinrateColors color) => color == WinrateColors.None ? null :
                 new SolidColorBrush(Color.FromRgb((byte)((int)color >> 16), (byte)((int)color >> 8), (byte)color));

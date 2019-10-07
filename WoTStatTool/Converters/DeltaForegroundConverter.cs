@@ -15,14 +15,15 @@ namespace WotStatsTool.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double val = (double)value;
+            if (!(value is double val))
+                return Brushes.Gray;
 
-            switch (val)
+            return val switch
             {
-                case double testVal when testVal > 0: return Brushes.MediumSeaGreen;
-                case double testVal when testVal < 0: return Brushes.Tomato;
-                case double testVal: return Brushes.Gray;
-            }
+                _ when val > 0 => Brushes.MediumSeaGreen,
+                _ when val < 0 => Brushes.Tomato,
+                _ => Brushes.Gray,
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

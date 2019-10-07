@@ -18,14 +18,12 @@ namespace WotStatsTool.Converters
             if (null == value)
                 return Brushes.Black;
 
-            Color color;
-
-            switch (value)
+            Color color = value switch
             {
-                case SolidColorBrush brush: color = brush.Color; break;
-                case System.Windows.Controls.DataGridCell cell: color = ((SolidColorBrush)cell.Background)?.Color ?? Colors.White; break;
-                default: throw new NotImplementedException();
-            }
+                SolidColorBrush brush => brush.Color,
+                System.Windows.Controls.DataGridCell cell => ((SolidColorBrush)cell.Background)?.Color ?? Colors.White,
+                _ => throw new NotImplementedException(),
+            };
 
             //https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color
             double a = 1 - (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;

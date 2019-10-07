@@ -56,11 +56,11 @@
         <TextBlock Grid.Column="2" Grid.Row="0"
                    Text="{Binding Path=WN8, StringFormat={}{0:N0}}"
                    Background="{Binding WN8, Converter={x:Static converters:Wn8ColorConverter.Instance}}"
-                   Foreground="{Binding WN8, Converter={x:Static converters:Wn8ForegroundColorConverter.Instance}}"/>
+                   Foreground="{Binding Background, RelativeSource={RelativeSource Self}, Converter={x:Static converters:ForegroundColorConverter.Instance}}"/>
         <TextBlock Grid.Column="4" Grid.Row="0"
                    Text="{Binding Path=Winrate, StringFormat={}{0:P2}}"
                    Background="{Binding Winrate, Converter={x:Static converters:WinrateColorConverter.Instance}}"
-                   Foreground="{Binding Winrate, Converter={x:Static converters:WinrateForegroundColorConverter.Instance}}"/>
+                   Foreground="{Binding Background, RelativeSource={RelativeSource Self}, Converter={x:Static converters:ForegroundColorConverter.Instance}}"/>
         
         <!--Battles-->
         <TextBlock Grid.Column="0" Grid.Row="2"
