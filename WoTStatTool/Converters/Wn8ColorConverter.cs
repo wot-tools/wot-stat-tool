@@ -17,25 +17,23 @@ namespace WotStatsTool.Converters
         {
             double val = (double)value;
 
-            Func<int, SolidColorBrush> fromHex = hex =>
-            {
-                return new SolidColorBrush(Color.FromRgb((byte)(hex >> 16), (byte)(hex >> 8), (byte)hex));
-            };
+            static SolidColorBrush fromHex(Wn8Colors color) => color == Wn8Colors.None ? null :
+                new SolidColorBrush(Color.FromRgb((byte)((int)color >> 16), (byte)((int)color >> 8), (byte)color));
 
-            switch (val)
+            return fromHex(val switch
             {
-                case double testVal when double.IsNaN(testVal): return null;
-                case double testVal when testVal < 300: return fromHex((int)Wn8Colors.VeryBad);
-                case double testVal when testVal < 450: return fromHex((int)Wn8Colors.Bad);
-                case double testVal when testVal < 650: return fromHex((int)Wn8Colors.BelowAverage);
-                case double testVal when testVal < 900: return fromHex((int)Wn8Colors.Average);
-                case double testVal when testVal < 1200: return fromHex((int)Wn8Colors.AboveAverage);
-                case double testVal when testVal < 1600: return fromHex((int)Wn8Colors.Good);
-                case double testVal when testVal < 2000: return fromHex((int)Wn8Colors.VeryGood);
-                case double testVal when testVal < 2450: return fromHex((int)Wn8Colors.Great);
-                case double testVal when testVal < 2900: return fromHex((int)Wn8Colors.Unicum);
-                case double testVal: return fromHex((int)Wn8Colors.SuperUnicum);
-            }
+                _ when double.IsNaN(val) => Wn8Colors.None,
+                _ when val < 300 => Wn8Colors.VeryBad,
+                _ when val < 450 => Wn8Colors.Bad,
+                _ when val < 650 => Wn8Colors.BelowAverage,
+                _ when val < 900 => Wn8Colors.Average,
+                _ when val < 1200 => Wn8Colors.AboveAverage,
+                _ when val < 1600 => Wn8Colors.Good,
+                _ when val < 2000 => Wn8Colors.VeryGood,
+                _ when val < 2450 => Wn8Colors.Great,
+                _ when val < 2900 => Wn8Colors.Unicum,
+                _ => Wn8Colors.SuperUnicum,
+            });
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

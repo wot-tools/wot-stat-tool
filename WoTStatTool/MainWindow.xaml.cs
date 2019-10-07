@@ -260,6 +260,7 @@ namespace WotStatsTool
 
     public enum Wn8Colors
     {
+        None            = 0x000000,
         VeryBad         = 0xBAAAAD,
         Bad             = 0xF11919,
         BelowAverage    = 0xFF8A00,
@@ -274,15 +275,16 @@ namespace WotStatsTool
 
     public enum WinrateColors
     {
-        VeryBad = 0xBAAAAD,
-        Bad = 0xF11919,
-        BelowAverage = 0xFF8A00,
-        Average = 0xE6DF27,
-        AboveAverage = 0x77E812,
-        Good = 0x459300,
-        VeryGood = 0x2AE4FF,
-        Great = 0x00A0B8,
-        Unicum = 0xC64CFF,
-        SuperUnicum = 0x8225AD,
+        None            = 0x000000,
+        VeryBad         = 0xBAAAAD,
+        Bad             = 0xF11919,
+        BelowAverage    = 0xFF8A00,
+        Average         = 0xE6DF27,
+        AboveAverage    = 0x77E812,
+        Good            = 0x459300,
+        VeryGood        = 0x2AE4FF,
+        Great           = 0x00A0B8,
+        Unicum          = 0xC64CFF,
+        SuperUnicum     = 0x8225AD,
     }
 }

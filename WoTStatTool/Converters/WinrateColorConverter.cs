@@ -17,25 +17,23 @@ namespace WotStatsTool.Converters
         {
             double val = (double)value;
 
-            Func<int, SolidColorBrush> fromHex = hex =>
-            {
-                return new SolidColorBrush(Color.FromRgb((byte)(hex >> 16), (byte)(hex >> 8), (byte)hex));
-            };
+            static SolidColorBrush fromHex(WinrateColors color) => color == WinrateColors.None ? null :
+                new SolidColorBrush(Color.FromRgb((byte)((int)color >> 16), (byte)((int)color >> 8), (byte)color));
 
-            switch (val)
+            return fromHex(val switch
             {
-                case double testVal when double.IsNaN(testVal): return null;
-                case double testVal when testVal < 0.46: return fromHex((int)WinrateColors.VeryBad);
-                case double testVal when testVal < 0.47: return fromHex((int)WinrateColors.Bad);
-                case double testVal when testVal < 0.48: return fromHex((int)WinrateColors.BelowAverage);
-                case double testVal when testVal < 0.50: return fromHex((int)WinrateColors.Average);
-                case double testVal when testVal < 0.52: return fromHex((int)WinrateColors.AboveAverage);
-                case double testVal when testVal < 0.54: return fromHex((int)WinrateColors.Good);
-                case double testVal when testVal < 0.56: return fromHex((int)WinrateColors.VeryGood);
-                case double testVal when testVal < 0.60: return fromHex((int)WinrateColors.Great);
-                case double testVal when testVal < 0.65: return fromHex((int)WinrateColors.Unicum);
-                case double testVal: return fromHex((int)WinrateColors.SuperUnicum);
-            }
+                _ when double.IsNaN(val) => WinrateColors.None,
+                _ when val < 0.46 => WinrateColors.VeryBad,
+                _ when val < 0.47 => WinrateColors.Bad,
+                _ when val < 0.48 => WinrateColors.BelowAverage,
+                _ when val < 0.50 => WinrateColors.Average,
+                _ when val < 0.52 => WinrateColors.AboveAverage,
+                _ when val < 0.54 => WinrateColors.Good,
+                _ when val < 0.56 => WinrateColors.VeryGood,
+                _ when val < 0.60 => WinrateColors.Great,
+                _ when val < 0.65 => WinrateColors.Unicum,
+                _ => WinrateColors.SuperUnicum,
+            });
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
