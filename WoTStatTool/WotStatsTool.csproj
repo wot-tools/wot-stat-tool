@@ -215,5 +215,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MasteryBadges\class_icons_1.png" />
+    <Resource Include="Images\MasteryBadges\class_icons_2.png" />
+    <Resource Include="Images\MasteryBadges\class_icons_3.png" />
+    <Resource Include="Images\MasteryBadges\class_icons_4.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
