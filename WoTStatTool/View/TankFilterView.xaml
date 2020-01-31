@@ -19,7 +19,7 @@
         </Style>
         <Style TargetType="Image">
             <Setter Property="Height" Value="16"/>
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="UseLayoutRounding" Value="True"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -71,84 +71,134 @@
 
         <!--disregarded formatting to achieve easier change in columns or whatever-->
         <CheckBox Grid.Row="2"  Grid.Column="0" IsChecked="{Binding Path=Tier1}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_1.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Image Source="../Images/Tiers/tank_level_1.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _1</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="4"  Grid.Column="0" IsChecked="{Binding Path=Tier2}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_2.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_2.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _2</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding Path=Tier3}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_3.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_3.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _3</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="8"  Grid.Column="0" IsChecked="{Binding Path=Tier4}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_4.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_4.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _4</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="10" Grid.Column="0" IsChecked="{Binding Path=Tier5}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_5.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_5.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _5</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="12"  Grid.Column="0" IsChecked="{Binding Path=Tier6}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_6.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_6.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _6</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="14"  Grid.Column="0" IsChecked="{Binding Path=Tier7}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_7.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_7.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _7</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="16"  Grid.Column="0" IsChecked="{Binding Path=Tier8}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_8.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_8.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _8</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="18"  Grid.Column="0" IsChecked="{Binding Path=Tier9}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_9.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_9.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier _9</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
         <CheckBox Grid.Row="20" Grid.Column="0" IsChecked="{Binding Path=Tier10}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Tiers/tank_level_10.png" Width="23"/>
-                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="../Images/Tiers/tank_level_10.png" HorizontalAlignment="Center"/>
+                <TextBlock Margin="3,0,0,0" VerticalAlignment="Center" Grid.Column="1">
                     <AccessText>Tier 1_0</AccessText>
                 </TextBlock>
-            </StackPanel>
+            </Grid>
         </CheckBox>
 
         <StackPanel Orientation="Horizontal" Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
