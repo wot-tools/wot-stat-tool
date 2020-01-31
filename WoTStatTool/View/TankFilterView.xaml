@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WotStatsTool.View.TankFilterView"
+<UserControl x:Class="WotStatsTool.View.TankFilterView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -252,7 +252,7 @@
 
         <CheckBox Grid.Row="2"  Grid.Column="8" IsChecked="{Binding Path=Heavy}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Types/heavyTank.png"/>
+                <Image Source="../Images/Types/ht.png"/>
                 <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
                     <AccessText>_Heavy</AccessText>
                 </TextBlock>
@@ -260,7 +260,7 @@
         </CheckBox>
         <CheckBox Grid.Row="4"  Grid.Column="8" IsChecked="{Binding Path=Medium}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Types/mediumTank.png"/>
+                <Image Source="../Images/Types/mt.png"/>
                 <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
                     <AccessText>_Medium</AccessText>
                 </TextBlock>
@@ -268,7 +268,7 @@
         </CheckBox>
         <CheckBox Grid.Row="6"  Grid.Column="8" IsChecked="{Binding Path=Light}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Types/lightTank.png"/>
+                <Image Source="../Images/Types/lt.png"/>
                 <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
                     <AccessText>_Light</AccessText>
                 </TextBlock>
@@ -276,7 +276,7 @@
         </CheckBox>
         <CheckBox Grid.Row="8"  Grid.Column="8" IsChecked="{Binding Path=TD}">
             <StackPanel Orientation="Horizontal">
-                <Image Source="../Images/Types/AT-SPG.png"/>
+                <Image Source="../Images/Types/td.png"/>
                 <TextBlock Margin="3,0,0,0" VerticalAlignment="Center">
                     <AccessText>_TD</AccessText>
                 </TextBlock>
