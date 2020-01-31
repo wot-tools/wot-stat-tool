@@ -107,6 +107,7 @@ namespace WotStatsTool.ViewModel
         {
             IsFetchingAll = true;
             int counter = 0;
+            LoadingVisualization.SetProgress(0);
             List<Task> tasks = new List<Task>();
             foreach (var id in DaySnapshot.GetExistingPlayerIDs())
                 tasks.Add(Fetch(id, () => Interlocked.Increment(ref counter), tasks));
@@ -117,7 +118,7 @@ namespace WotStatsTool.ViewModel
         private async Task Fetch(int id, Func<int> getCounter, List<Task> tasks)
         {
             await new DaySnapshot(id).CreateNewSnapshotAsync(Client);
-            LoadingVisualization.SetProgress(getCounter() / tasks.Count);
+            LoadingVisualization.SetProgress((double)getCounter() / tasks.Count);
         }
 
         private void DisplayExistingRecords()
